@@ -87,6 +87,7 @@
   html {
     font-size: var(--font-size);
     scroll-behavior: smooth;
+    scrollbar-gutter: stable;
   }
 
   body {
@@ -96,6 +97,8 @@
     font-family:
       "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR",
       "Malgun Gothic", system-ui, sans-serif;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   a {
