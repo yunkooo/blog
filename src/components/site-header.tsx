@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTheme } from "@/components/theme-provider";
 
 function SunIcon() {
   return (
@@ -45,14 +46,11 @@ function MenuIcon() {
 }
 
 export function SiteHeader({
-  isDarkMode,
-  toggleDarkMode,
   currentPath,
 }: {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
   currentPath: "/" | "/resume";
 }) {
+  const { isDarkMode, toggleDarkMode } = useTheme();
   const inactiveLinkClass = "text-muted-foreground transition-colors hover:text-foreground";
   const activeLinkClass = "text-foreground";
 

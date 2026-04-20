@@ -2,7 +2,6 @@
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { useState } from "react";
 
 const skills = [
   "React",
@@ -37,16 +36,10 @@ const projects = [
 ];
 
 export default function ResumePage() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
   return (
-    <div className={`${isDarkMode ? "dark" : ""} min-h-screen bg-background text-foreground`}>
+    <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6 lg:px-8">
-        <SiteHeader
-          isDarkMode={isDarkMode}
-          toggleDarkMode={() => setIsDarkMode((prev) => !prev)}
-          currentPath="/resume"
-        />
+        <SiteHeader currentPath="/resume" />
 
         <main className="mb-8 mt-8 flex-1">
           <section className="border-b border-border pb-8">

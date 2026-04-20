@@ -210,7 +210,6 @@ function Pagination({
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const totalPages = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
   const currentPosts = useMemo(() => {
@@ -220,13 +219,9 @@ export default function Home() {
   }, [currentPage]);
 
   return (
-    <div className={`${isDarkMode ? "dark" : ""} min-h-screen bg-background text-foreground`}>
+    <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6 lg:px-8">
-        <SiteHeader
-          isDarkMode={isDarkMode}
-          toggleDarkMode={() => setIsDarkMode((prev) => !prev)}
-          currentPath="/"
-        />
+        <SiteHeader currentPath="/" />
 
         <main className="mb-8 mt-8 flex-1">
           <div className="space-y-4" id="scraps">
