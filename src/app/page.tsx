@@ -1,5 +1,7 @@
 "use client";
 
+import { SiteFooter } from "@/components/site-footer";
+import { SiteHeader } from "@/components/site-header";
 import { useMemo, useState } from "react";
 
 type BlogPost = {
@@ -158,108 +160,6 @@ const blogPosts: BlogPost[] = [
 
 const POSTS_PER_PAGE = 6;
 
-function SunIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
-      <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="1.8" />
-      <path
-        d="M12 2.5v2.2M12 19.3v2.2M21.5 12h-2.2M4.7 12H2.5M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6M18.7 18.7l-1.6-1.6M6.9 6.9 5.3 5.3"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.8"
-      />
-    </svg>
-  );
-}
-
-function MoonIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-5">
-      <path
-        d="M20 14.2A8 8 0 1 1 9.8 4 6.7 6.7 0 0 0 20 14.2Z"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-      />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-6">
-      <path
-        d="M4 7h16M4 12h16M4 17h16"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.8"
-      />
-    </svg>
-  );
-}
-
-function Header({
-  isDarkMode,
-  toggleDarkMode,
-}: {
-  isDarkMode: boolean;
-  toggleDarkMode: () => void;
-}) {
-  return (
-    <header className="flex items-center justify-between border-b border-border py-6">
-      <a href="#" className="flex items-center gap-3">
-        <span
-          aria-hidden="true"
-          className="relative top-[2px] block size-10 bg-foreground transition-colors duration-200"
-          style={{
-            WebkitMaskImage: "url('/blog-logo.svg')",
-            maskImage: "url('/blog-logo.svg')",
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-            maskPosition: "center",
-            WebkitMaskSize: "contain",
-            maskSize: "contain",
-          }}
-        />
-        <h1 className="text-xl">yunkoo.dev</h1>
-      </a>
-
-      <div className="flex items-center gap-4">
-        <nav className="hidden gap-8 md:flex">
-          <a
-            href="#"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            posts
-          </a>
-          <a
-            href="#about"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            about
-          </a>
-        </nav>
-
-        <button
-          onClick={toggleDarkMode}
-          className="rounded-lg p-2 transition-colors hover:bg-muted"
-          aria-label="Toggle dark mode"
-          type="button"
-        >
-          {isDarkMode ? <SunIcon /> : <MoonIcon />}
-        </button>
-
-        <button className="md:hidden" type="button" aria-label="Open menu">
-          <MenuIcon />
-        </button>
-      </div>
-    </header>
-  );
-}
-
 function BlogPostItem({ title, description, date }: Omit<BlogPost, "id" | "year">) {
   return (
     <article className="group cursor-pointer rounded-lg px-4 py-6 transition-colors hover:bg-muted/30 md:px-6 md:py-6">
@@ -308,38 +208,6 @@ function Pagination({
   );
 }
 
-function Footer() {
-  return (
-    <footer className="border-t border-border py-8">
-      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <div className="flex gap-6">
-          <a
-            href="https://github.com/yunkooo"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            GitHub
-          </a>
-          <a
-            href="mailto:your@email.com"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Email
-          </a>
-        </div>
-
-        <div className="text-sm text-muted-foreground">
-          © 2026 yunkoo (yunkoooooo@email)
-          <br className="sm:hidden" />
-          <span className="hidden sm:inline"> · </span>
-          All rights reserved
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -354,9 +222,10 @@ export default function Home() {
   return (
     <div className={`${isDarkMode ? "dark" : ""} min-h-screen bg-background text-foreground`}>
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6 lg:px-8">
-        <Header
+        <SiteHeader
           isDarkMode={isDarkMode}
           toggleDarkMode={() => setIsDarkMode((prev) => !prev)}
+          currentPath="/"
         />
 
         <main className="mb-8 mt-8 flex-1">
@@ -373,11 +242,7 @@ export default function Home() {
           />
         </main>
 
-        <section id="about" className="sr-only">
-          about
-        </section>
-
-        <Footer />
+        <SiteFooter />
       </div>
     </div>
   );
