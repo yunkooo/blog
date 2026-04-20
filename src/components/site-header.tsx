@@ -31,20 +31,6 @@ function MoonIcon() {
   );
 }
 
-function MenuIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-6">
-      <path
-        d="M4 7h16M4 12h16M4 17h16"
-        fill="none"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.8"
-      />
-    </svg>
-  );
-}
-
 export function SiteHeader({
   currentPath,
 }: {
@@ -75,7 +61,7 @@ export function SiteHeader({
       </Link>
 
       <div className="flex items-center gap-4">
-        <nav className="hidden gap-8 md:flex">
+        <nav className="flex gap-5 sm:gap-8">
           <Link
             href="/"
             className={currentPath === "/" ? activeLinkClass : inactiveLinkClass}
@@ -97,10 +83,6 @@ export function SiteHeader({
           type="button"
         >
           {isDarkMode ? <SunIcon /> : <MoonIcon />}
-        </button>
-
-        <button className="md:hidden" type="button" aria-label="Open menu">
-          <MenuIcon />
         </button>
       </div>
     </header>
