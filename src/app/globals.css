@@ -139,3 +139,129 @@
     line-height: 1.5;
   }
 }
+
+@layer components {
+  .post-content {
+    color: var(--foreground);
+    width: 100%;
+    max-width: none;
+    font-family:
+      "Apple SD Gothic Neo", "Noto Sans KR", "Pretendard Variable", "Pretendard",
+      "Malgun Gothic", system-ui, sans-serif;
+    font-size: 1rem;
+    font-weight: 450;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .post-content h2 {
+    font-size: clamp(1.55rem, 1.25rem + 1vw, 1.9rem);
+  }
+
+  .post-content h3 {
+    font-size: clamp(1.28rem, 1.12rem + 0.6vw, 1.5rem);
+  }
+
+  .post-content h4 {
+    font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.2rem);
+  }
+
+  .post-content > * + * {
+    margin-top: 1.5rem;
+  }
+
+  .post-content > :where(p, h2, h3, h4, h5, h6, ul, ol, blockquote, figure, pre, hr) {
+    width: 100%;
+    max-width: none;
+  }
+
+  .post-content h2,
+  .post-content h3,
+  .post-content h4 {
+    margin-top: 2.75rem;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+  }
+
+  .post-content p,
+  .post-content li,
+  .post-content blockquote {
+    color: color-mix(in srgb, var(--foreground) 76%, var(--muted-foreground) 24%);
+    font-size: 1rem;
+    font-weight: 450;
+    line-height: 1.95;
+    letter-spacing: 0.012em;
+  }
+
+  .post-content strong {
+    color: var(--foreground);
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  .post-content ul,
+  .post-content ol {
+    padding-left: 1.5rem;
+  }
+
+  .post-content li + li {
+    margin-top: 0.7rem;
+  }
+
+  .post-content figure {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .post-content figure pre,
+  .post-content pre {
+    margin-left: 0;
+    margin-right: 0;
+    text-align: left;
+  }
+
+  .post-content blockquote {
+    border-left: 3px solid var(--border);
+    padding-left: 1rem;
+    font-size: 1rem;
+  }
+
+  .post-content code {
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--muted) 70%, transparent);
+    border-radius: 0.6rem;
+    padding: 0.14rem 0.48rem;
+    font-size: 0.95em;
+    line-height: 1.7;
+  }
+
+  .post-content pre {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--muted) 72%, transparent);
+    border-radius: 1rem;
+    padding: 1.15rem 1.25rem;
+    font-size: 0.97rem;
+    line-height: 1.8;
+  }
+
+  .post-content pre code {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .post-content a {
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .post-content hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+}

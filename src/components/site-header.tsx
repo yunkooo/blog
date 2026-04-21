@@ -32,9 +32,9 @@ function MoonIcon() {
 }
 
 export function SiteHeader({
-  currentPath,
+  currentSection,
 }: {
-  currentPath: "/" | "/resume";
+  currentSection: "posts" | "about";
 }) {
   const { isDarkMode, toggleDarkMode } = useTheme();
   const inactiveLinkClass = "text-muted-foreground transition-colors hover:text-foreground";
@@ -45,7 +45,7 @@ export function SiteHeader({
       <Link href="/" className="flex items-center gap-3">
         <span
           aria-hidden="true"
-          className="relative top-[2px] block size-10 bg-foreground transition-colors duration-200"
+          className="relative top-[2px] block size-[30px] bg-foreground transition-colors duration-200"
           style={{
             WebkitMaskImage: "url('/blog-logo.svg')",
             maskImage: "url('/blog-logo.svg')",
@@ -62,17 +62,14 @@ export function SiteHeader({
 
       <div className="flex items-center gap-4">
         <nav className="flex gap-5 sm:gap-8">
-          <Link
-            href="/"
-            className={currentPath === "/" ? activeLinkClass : inactiveLinkClass}
-          >
+          <Link href="/" className={currentSection === "posts" ? activeLinkClass : inactiveLinkClass}>
             posts
           </Link>
           <Link
-            href="/resume"
-            className={currentPath === "/resume" ? activeLinkClass : inactiveLinkClass}
+            href="/about"
+            className={currentSection === "about" ? activeLinkClass : inactiveLinkClass}
           >
-            resume
+            about
           </Link>
         </nav>
 
