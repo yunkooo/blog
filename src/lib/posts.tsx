@@ -1,10 +1,14 @@
+import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
+import type { ComponentPropsWithoutRef } from "react";
 import matter from "gray-matter";
-import { evaluate } from "@mdx-js/mdx";
-import type { MDXComponents } from "mdx/types";
-import * as runtime from "react/jsx-runtime";
 import { notFound } from "next/navigation";
+import { MDXRemote, type MDXRemoteProps } from "next-mdx-remote/rsc";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import remarkGfm from "remark-gfm";
 
 const postsDirectory = path.join(process.cwd(), "content/posts");
 
@@ -28,8 +32,8 @@ export type PostDetail = PostSummary & {
   content: string;
 };
 
-const mdxComponents: MDXComponents = {
-  a: ({ href = "", ...props }) => {
+const mdxComponents = {
+  a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
     const isExternal = href.startsWith("http://") || href.startsWith("https://");
 
     return (
@@ -41,8 +45,19 @@ const mdxComponents: MDXComponents = {
       />
     );
   },
-  pre: (props) => <pre {...props} />,
-  code: (props) => <code {...props} />,
+  pre: (props: ComponentPropsWithoutRef<"pre">) => <pre {...props} />,
+  code: (props: ComponentPropsWithoutRef<"code">) => <code {...props} />,
+};
+
+const mdxRemoteOptions: MDXRemoteProps["options"] = {
+  mdxOptions: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [
+      rehypeSlug,
+      [rehypeAutolinkHeadings, { behavior: "append" }],
+      [rehypePrettyCode, { keepBackground: false, defaultLang: "plaintext" }],
+    ],
+  },
 };
 
 function getSlugFromFilename(filename: string) {
@@ -134,12 +149,7 @@ export async function getPostSlugs() {
 }
 
 export async function renderPostContent(source: string) {
-  const evaluated = await evaluate(source, {
-    ...runtime,
-  });
-
-  const Content = evaluated.default;
-  return <Content components={mdxComponents} />;
+  return <MDXRemote source={source} components={mdxComponents} options={mdxRemoteOptions} />;
 }
 
 export function formatKoreanDate(date: string) {

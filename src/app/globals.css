@@ -259,6 +259,24 @@
     text-underline-offset: 0.18em;
   }
 
+  .post-content :is(h2, h3, h4, h5, h6) > a[aria-hidden="true"] {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.45rem;
+    color: var(--muted-foreground);
+    opacity: 0;
+    text-decoration: none;
+    transition: opacity 160ms ease;
+  }
+
+  .post-content :is(h2, h3, h4, h5, h6):hover > a[aria-hidden="true"] {
+    opacity: 1;
+  }
+
+  .post-content [data-rehype-pretty-code-figure] {
+    margin: 0;
+  }
+
   .post-content hr {
     border: 0;
     border-top: 1px solid var(--border);
