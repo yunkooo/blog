@@ -1,8 +1,10 @@
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border py-8">
-      <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-        <div className="flex gap-6">
+    <footer className="border-t border-border py-6 sm:py-8">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-2">
+          <p className="text-sm font-medium tracking-[-0.01em]">yunkoo.dev</p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2">
           <a
             href="https://github.com/yunkooo"
             target="_blank"
@@ -12,18 +14,17 @@ export function SiteFooter() {
             GitHub
           </a>
           <a
-            href="mailto:your@email.com"
+            href="mailto:kooruen@gmail.com"
             className="text-muted-foreground transition-colors hover:text-foreground"
           >
             Email
           </a>
+          </div>
         </div>
 
-        <div className="text-sm text-muted-foreground">
-          © 2026 yunkoo (yunkoooooo@email)
-          <br className="sm:hidden" />
-          <span className="hidden sm:inline"> · </span>
-          All rights reserved
+        <div className="space-y-1 text-sm text-muted-foreground sm:text-right">
+          <p>© 2026 yunkoo</p>
+          <p>kooruen@gmail.com</p>
         </div>
       </div>
     </footer>

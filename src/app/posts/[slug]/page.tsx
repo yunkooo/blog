@@ -67,7 +67,7 @@ export default async function PostDetailPage({ params }: PostPageProps) {
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6 lg:px-8">
         <SiteHeader currentSection="posts" />
 
-        <main className="flex-1 py-10 sm:py-12">
+        <main className="flex-1 py-8 sm:py-10">
           <article className="px-0 py-1 sm:py-2">
             <Link
               href="/"
@@ -76,22 +76,27 @@ export default async function PostDetailPage({ params }: PostPageProps) {
               목록으로 돌아가기
             </Link>
 
-            <header className="mt-4 border-b border-border pb-6">
-              <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-                <span>{post.category}</span>
-                <span aria-hidden="true">/</span>
+            <header className="mt-4 border-b border-border pb-6 sm:pb-7">
+              <div className="flex flex-wrap items-center gap-2.5 text-sm text-muted-foreground">
+                <span className="rounded-full border border-border/80 px-2.5 py-1 text-xs uppercase tracking-[0.14em]">
+                  {post.category}
+                </span>
                 <time dateTime={post.publishedAt}>{formatKoreanDate(post.publishedAt)}</time>
-                <span aria-hidden="true">/</span>
+                <span className="text-border" aria-hidden="true">
+                  ·
+                </span>
                 <span>{post.readingTimeText}</span>
               </div>
 
-              <h1 className="mt-3 text-[2rem] font-semibold tracking-tight sm:text-[2.5rem]">
+              <h1 className="mt-4 text-[1.9rem] font-semibold tracking-tight sm:text-[2.45rem]">
                 {post.title}
               </h1>
-              <p className="mt-3 w-full text-base text-muted-foreground sm:text-lg">{post.description}</p>
+              <p className="mt-3 w-full text-base leading-8 text-muted-foreground sm:text-lg">
+                {post.description}
+              </p>
 
               {post.tags.length > 0 ? (
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-5 flex flex-wrap gap-2">
                   {post.tags.map((tag) => (
                     <span
                       key={tag}
@@ -104,7 +109,7 @@ export default async function PostDetailPage({ params }: PostPageProps) {
               ) : null}
             </header>
 
-            <div className="post-content mt-8 w-full">{content}</div>
+            <div className="post-content mt-7 w-full sm:mt-8">{content}</div>
           </article>
         </main>
 

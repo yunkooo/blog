@@ -47,15 +47,15 @@ export default function AboutPage() {
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6 lg:px-8">
         <SiteHeader currentSection="about" />
 
-        <main className="flex-1 py-10 sm:py-12">
+        <main className="flex-1 py-8 sm:py-10">
           <div>
-            <section className="grid gap-6 px-0 py-2 sm:py-4 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start">
+            <section className="grid gap-8 px-0 py-1 sm:py-3 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start">
               <div>
                 <p className="text-sm uppercase tracking-[0.24em] text-muted-foreground">About</p>
                 <h1 className="mt-3 text-[1.65rem] font-semibold tracking-tight sm:text-[2.15rem]">
                   우당탕탕 삽질중인 개발자 이윤구입니다
                 </h1>
-                <div className="mt-12 max-w-3xl space-y-2.5 text-muted-foreground">
+                <div className="mt-20 max-w-3xl space-y-2.5 text-muted-foreground">
                   <p>
                     사용자가 불편 없이 머무를 수 있는 화면을 만드는 일을 좋아합니다.
                   </p>
@@ -66,16 +66,16 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              <div className="mx-auto w-full max-w-[220px] lg:mx-0 lg:justify-self-end">
-                <div className="overflow-hidden rounded-3xl border border-border bg-background p-2 shadow-sm">
-                  <div className="overflow-hidden rounded-[1.25rem] bg-secondary">
+              <div className="mx-auto w-full max-w-[220px] sm:max-w-[232px] lg:mx-0 lg:mt-1 lg:justify-self-end">
+                <div className="overflow-hidden rounded-[2rem] border border-border/80 bg-background p-2">
+                  <div className="overflow-hidden rounded-[1.35rem] bg-secondary">
                     <Image
                       src="/resume-profile.jpg"
                       alt="이윤구 프로필 캐리커처"
                       width={1600}
                       height={1080}
                       priority
-                      className="aspect-[4/5] h-auto w-full object-cover object-center"
+                      className="aspect-[5/6] h-auto w-full object-cover object-center"
                     />
                   </div>
                 </div>
@@ -83,7 +83,7 @@ export default function AboutPage() {
             </section>
 
             <div className="mt-6 divide-y divide-border">
-              <section className="grid gap-6 px-0 py-6 lg:grid-cols-[140px_minmax(0,1fr)]">
+              <section className="grid gap-4 px-0 py-5 sm:py-6 lg:grid-cols-[132px_minmax(0,1fr)]">
                 <h2 className="text-sm uppercase tracking-[0.2em] text-muted-foreground">기본사항</h2>
                 <div className="grid gap-3">
                   {basics.map((item) => (
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 </div>
               </section>
 
-              <section className="grid gap-6 px-0 py-6 lg:grid-cols-[140px_minmax(0,1fr)]">
+              <section className="grid gap-4 px-0 py-5 sm:py-6 lg:grid-cols-[132px_minmax(0,1fr)]">
                 <h2 className="text-sm uppercase tracking-[0.2em] text-muted-foreground">자격증</h2>
                 <div className="space-y-2">
                   {certifications.map((item) => (
