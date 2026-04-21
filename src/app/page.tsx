@@ -1,7 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { formatKoreanDate, getAllPosts } from "@/lib/posts";
+import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Posts",
+  description: "프론트엔드 개발 기록과 회고를 모아둔 글 목록입니다.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: `Posts | ${siteConfig.name}`,
+    description: "프론트엔드 개발 기록과 회고를 모아둔 글 목록입니다.",
+    url: siteConfig.url,
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: `Posts | ${siteConfig.name}`,
+    description: "프론트엔드 개발 기록과 회고를 모아둔 글 목록입니다.",
+  },
+};
 
 export default async function HomePage() {
   const posts = await getAllPosts();

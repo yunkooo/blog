@@ -13,6 +13,7 @@ type ThemeMode = "light" | "dark";
 
 type ThemeContextValue = {
   isDarkMode: boolean;
+  isMounted: boolean;
   toggleDarkMode: () => void;
 };
 
@@ -36,6 +37,11 @@ function getInitialTheme(): ThemeMode {
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<ThemeMode>(getInitialTheme);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -63,6 +69,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const value = useMemo<ThemeContextValue>(
     () => ({
       isDarkMode: theme === "dark",
+      isMounted,
       toggleDarkMode: () => {
         setTheme((currentTheme) => {
           const nextTheme = currentTheme === "dark" ? "light" : "dark";
@@ -71,7 +78,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         });
       },
     }),
-    [theme],
+    [isMounted, theme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;

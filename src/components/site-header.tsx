@@ -36,7 +36,7 @@ export function SiteHeader({
 }: {
   currentSection: "posts" | "about";
 }) {
-  const { isDarkMode, toggleDarkMode } = useTheme();
+  const { isDarkMode, isMounted, toggleDarkMode } = useTheme();
   const inactiveLinkClass = "text-muted-foreground transition-colors hover:text-foreground";
   const activeLinkClass = "text-foreground";
 
@@ -79,7 +79,7 @@ export function SiteHeader({
           aria-label="Toggle dark mode"
           type="button"
         >
-          {isDarkMode ? <SunIcon /> : <MoonIcon />}
+          {isMounted ? isDarkMode ? <SunIcon /> : <MoonIcon /> : <span className="block size-5" />}
         </button>
       </div>
     </header>

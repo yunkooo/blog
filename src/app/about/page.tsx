@@ -1,8 +1,8 @@
-"use client";
-
+import type { Metadata } from "next";
 import Image from "next/image";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { siteConfig } from "@/lib/site";
 
 const basics = [
   { label: "이름", value: "이윤구" },
@@ -16,18 +16,43 @@ const basics = [
 
 const certifications = ["정보처리기사 (2025.09.12)"];
 
+export const metadata: Metadata = {
+  title: "About",
+  description: "프론트엔드 개발자 이윤구에 대한 간단한 소개 페이지입니다.",
+  alternates: {
+    canonical: "/about",
+  },
+  openGraph: {
+    title: `About | ${siteConfig.name}`,
+    description: "프론트엔드 개발자 이윤구에 대한 간단한 소개 페이지입니다.",
+    url: `${siteConfig.url}/about`,
+    type: "profile",
+    images: [
+      {
+        url: "/resume-profile.jpg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: `About | ${siteConfig.name}`,
+    description: "프론트엔드 개발자 이윤구에 대한 간단한 소개 페이지입니다.",
+    images: ["/resume-profile.jpg"],
+  },
+};
+
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col px-4 sm:px-6 lg:px-8">
         <SiteHeader currentSection="about" />
 
-        <main className="mb-6 mt-6 flex-1">
+        <main className="flex-1 py-10 sm:py-12">
           <div>
-            <section className="grid gap-6 px-0 py-1 sm:py-2 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start">
+            <section className="grid gap-6 px-0 py-2 sm:py-4 lg:grid-cols-[minmax(0,1fr)_220px] lg:items-start">
               <div>
                 <p className="text-sm uppercase tracking-[0.24em] text-muted-foreground">About</p>
-                <h1 className="mt-3 text-[1.55rem] font-semibold tracking-tight sm:text-[2rem]">
+                <h1 className="mt-3 text-[1.65rem] font-semibold tracking-tight sm:text-[2.15rem]">
                   우당탕탕 삽질중인 개발자 이윤구입니다
                 </h1>
                 <div className="mt-12 max-w-3xl space-y-2.5 text-muted-foreground">
@@ -57,7 +82,7 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <div className="mt-4 divide-y divide-border">
+            <div className="mt-6 divide-y divide-border">
               <section className="grid gap-6 px-0 py-6 lg:grid-cols-[140px_minmax(0,1fr)]">
                 <h2 className="text-sm uppercase tracking-[0.2em] text-muted-foreground">기본사항</h2>
                 <div className="grid gap-3">

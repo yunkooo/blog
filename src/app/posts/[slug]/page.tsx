@@ -8,6 +8,7 @@ import {
   getPostSlugs,
   renderPostContent,
 } from "@/lib/posts";
+import { siteConfig } from "@/lib/site";
 
 type PostPageProps = {
   params: Promise<{
@@ -23,10 +24,36 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
+  const url = `${siteConfig.url}/posts/${post.slug}`;
 
   return {
-    title: `${post.title} | yunkoo.dev`,
+    title: post.title,
     description: post.description,
+    alternates: {
+      canonical: `/posts/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url,
+      type: "article",
+      locale: "ko_KR",
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt ?? post.publishedAt,
+      tags: post.tags,
+      authors: [siteConfig.name],
+      images: [
+        {
+          url: siteConfig.ogImage,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.description,
+      images: [siteConfig.ogImage],
+    },
   };
 }
 

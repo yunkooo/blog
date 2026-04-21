@@ -1,10 +1,34 @@
 import type { Metadata } from "next";
+import { siteConfig } from "@/lib/site";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "yunkoo.dev",
-  description: "반응형 블로그 디자인을 기반으로 만든 블로그 홈",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    locale: "ko_KR",
+    type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
+  },
   icons: {
     icon: [
       { url: "/blog-logo.svg", type: "image/svg+xml", sizes: "32x32" },
