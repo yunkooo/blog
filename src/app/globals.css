@@ -270,12 +270,17 @@
     align-items: center;
     margin-left: 0.45rem;
     color: var(--muted-foreground);
-    opacity: 0;
+    font-size: 0.82em;
+    font-weight: 500;
+    opacity: 0.45;
     text-decoration: none;
-    transition: opacity 160ms ease;
+    transition:
+      color 160ms ease,
+      opacity 160ms ease;
   }
 
   .post-content :is(h2, h3, h4, h5, h6):hover > a[aria-hidden="true"] {
+    color: var(--foreground);
     opacity: 1;
   }
 

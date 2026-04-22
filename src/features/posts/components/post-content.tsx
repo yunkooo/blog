@@ -25,7 +25,16 @@ const mdxRemoteOptions: MDXRemoteProps["options"] = {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [
       rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: "append" }],
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+          content: {
+            type: "text",
+            value: "#",
+          },
+        },
+      ],
       [rehypePrettyCode, { keepBackground: false, defaultLang: "plaintext" }],
     ],
   },
