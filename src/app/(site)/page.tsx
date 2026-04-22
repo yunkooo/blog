@@ -5,20 +5,26 @@ import { getAllPosts } from "@/features/posts/data";
 import { formatKoreanDate } from "@/features/posts/utils/format-korean-date";
 
 export const metadata: Metadata = {
-  description: "프론트엔드 개발 기록과 회고를 모아둔 글 목록입니다.",
+  description: siteConfig.description,
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: siteConfig.title,
-    description: "프론트엔드 개발 기록과 회고를 모아둔 글 목록입니다.",
+    description: siteConfig.description,
     url: siteConfig.url,
     type: "website",
+    images: [
+      {
+        url: siteConfig.ogImage,
+      },
+    ],
   },
   twitter: {
     card: "summary",
     title: siteConfig.title,
-    description: "프론트엔드 개발 기록과 회고를 모아둔 글 목록입니다.",
+    description: siteConfig.description,
+    images: [siteConfig.ogImage],
   },
 };
 
