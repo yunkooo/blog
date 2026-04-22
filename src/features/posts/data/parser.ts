@@ -1,5 +1,5 @@
 import matter from "gray-matter";
-import type { PostDetail, PostFrontmatter, RawFrontmatter } from "@/posts/api/types";
+import type { PostDetail, PostFrontmatter, RawFrontmatter } from "@/features/posts/data/types";
 
 function getSlugFromFilename(filename: string) {
   return filename.replace(/\.mdx$/, "");

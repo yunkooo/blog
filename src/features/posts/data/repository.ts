@@ -2,7 +2,7 @@ import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { notFound } from "next/navigation";
-import { parsePostFile } from "@/posts/api/parser";
+import { parsePostFile } from "@/features/posts/data/parser";
 
 const defaultPostsDirectory = "content-source/posts";
 
