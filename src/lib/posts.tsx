@@ -10,7 +10,35 @@ import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 
-const postsDirectory = path.join(process.cwd(), "content/posts");
+const defaultPostsDirectory = "content-source/posts";
+
+function resolvePostsDirectory() {
+  const configuredDirectory = process.env.POSTS_DIR?.trim() || defaultPostsDirectory;
+  return path.isAbsolute(configuredDirectory)
+    ? configuredDirectory
+    : path.join(process.cwd(), configuredDirectory);
+}
+
+async function ensurePostsDirectoryExists(postsDirectory: string) {
+  try {
+    const stats = await fs.stat(postsDirectory);
+
+    if (!stats.isDirectory()) {
+      throw new Error(
+        `Configured POSTS_DIR is not a directory: ${postsDirectory}. ` +
+          "Point POSTS_DIR to the checked-out post repository path.",
+      );
+    }
+  } catch (error) {
+    const details = error instanceof Error ? error.message : "Unknown error";
+
+    throw new Error(
+      `Posts directory is unavailable at ${postsDirectory}. ` +
+        "Add the posts submodule at content-source/posts or set POSTS_DIR to a valid directory. " +
+        `Details: ${details}`,
+    );
+  }
+}
 
 export type PostFrontmatter = {
   title: string;
@@ -98,6 +126,8 @@ function parsePostFile(filename: string, source: string): PostDetail {
 }
 
 async function getPostFilenames() {
+  const postsDirectory = resolvePostsDirectory();
+  await ensurePostsDirectoryExists(postsDirectory);
   const entries = await fs.readdir(postsDirectory, { withFileTypes: true });
 
   return entries
@@ -106,6 +136,7 @@ async function getPostFilenames() {
 }
 
 export async function getAllPosts() {
+  const postsDirectory = resolvePostsDirectory();
   const filenames = await getPostFilenames();
   const posts = await Promise.all(
     filenames.map(async (filename) => {
@@ -127,6 +158,8 @@ export async function getFeaturedPosts(limit = 3) {
 }
 
 export async function getPostBySlug(slug: string) {
+  const postsDirectory = resolvePostsDirectory();
+  await ensurePostsDirectoryExists(postsDirectory);
   const filePath = path.join(postsDirectory, `${slug}.mdx`);
 
   try {
