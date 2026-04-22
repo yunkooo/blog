@@ -1,4 +1,4 @@
-# [yunkoo.dev](https://yunkoo.dev)
+# Blog
 
 Next.js 기반 개인 기술 블로그입니다.
 
@@ -6,11 +6,11 @@ Next.js 기반 개인 기술 블로그입니다.
 
 ## 소개
 
-이 저장소는 `yunkoo.dev`를 구성하는 Next.js 블로그 앱입니다.
+이 저장소는 yunkoo.dev를 구성하는 Next.js 블로그 앱입니다. <br />
 블로그 화면, 라우팅, MDX 렌더링, SEO 메타데이터, 배포 파이프라인을 담당합니다.
 
-글 원본은 별도 private 저장소에서 관리하고, 이 저장소는 배포할 글 커밋을 submodule pointer로 고정합니다.
-덕분에 글을 자유롭게 작성하되, 공개 시점은 `blog` 저장소에서 명시적으로 제어할 수 있습니다.
+글 원본은 별도 private 저장소에서 관리하고, 이 저장소는 배포할 글 커밋을 submodule pointer로 고정합니다. <br />
+덕분에 글을 자유롭게 작성하되, 공개 시점은 blog 저장소에서 명시적으로 제어할 수 있습니다.
 
 ## Architecture
 
