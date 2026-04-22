@@ -4,14 +4,7 @@ import path from "node:path";
 import { notFound } from "next/navigation";
 import { parsePostFile } from "@/features/posts/data/parser";
 
-const defaultPostsDirectory = "content-source/posts";
-
-function resolvePostsDirectory() {
-  const configuredDirectory = process.env.POSTS_DIR?.trim() || defaultPostsDirectory;
-  return path.isAbsolute(configuredDirectory)
-    ? configuredDirectory
-    : path.join(process.cwd(), configuredDirectory);
-}
+const postsDirectory = path.join(process.cwd(), "content-source", "posts");
 
 async function ensurePostsDirectoryExists(postsDirectory: string) {
   try {
@@ -35,7 +28,6 @@ async function ensurePostsDirectoryExists(postsDirectory: string) {
 }
 
 async function getPostFilenames() {
-  const postsDirectory = resolvePostsDirectory();
   await ensurePostsDirectoryExists(postsDirectory);
   const entries = await fs.readdir(postsDirectory, { withFileTypes: true });
 
@@ -45,7 +37,6 @@ async function getPostFilenames() {
 }
 
 export async function getAllPosts() {
-  const postsDirectory = resolvePostsDirectory();
   const filenames = await getPostFilenames();
   const posts = await Promise.all(
     filenames.map(async (filename) => {
@@ -61,7 +52,6 @@ export async function getAllPosts() {
 }
 
 export async function getPostBySlug(slug: string) {
-  const postsDirectory = resolvePostsDirectory();
   await ensurePostsDirectoryExists(postsDirectory);
   const filePath = path.join(postsDirectory, `${slug}.mdx`);
 
