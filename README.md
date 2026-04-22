@@ -52,14 +52,14 @@ git commit -m "Publish posts"
 git push origin main
 ```
 
-3. `main` push가 발생하면 GitHub Actions가 현재 repo에 기록된 submodule SHA를 checkout합니다.
+3. `main` push가 발생하면 GitHub Actions가 현재 repo에 기록된 submodule SHA를 읽고, `blog-posts` 저장소를 해당 커밋으로 checkout합니다.
 4. Actions가 `vercel build`와 `vercel deploy --prebuilt --prod`로 production 배포를 실행합니다.
 
-중요한 점은 CI가 submodule의 최신 branch를 임의로 추적하지 않는다는 것입니다. 배포 대상은 항상 blog repo 커밋에 고정된 SHA입니다.
+중요한 점은 CI가 `blog-posts`의 최신 branch를 임의로 추적하지 않는다는 것입니다. 배포 대상은 항상 blog repo 커밋에 고정된 SHA입니다.
 
 ## Required Secrets
 
-- `GH_PAT`: private submodule 읽기 권한이 있는 GitHub Personal Access Token
+- `GH_PAT`: `blog-posts` 저장소를 읽을 수 있는 GitHub Personal Access Token
 - `VERCEL_TOKEN`
 - `VERCEL_ORG_ID`
 - `VERCEL_PROJECT_ID`
