@@ -34,7 +34,7 @@ npm run dev
 기본 콘텐츠 경로는 `content-source/posts`입니다. 다른 위치를 쓰고 싶다면 `POSTS_DIR` 환경변수로 덮어쓸 수 있습니다.
 
 ```bash
-POSTS_DIR=content/posts npm run dev
+POSTS_DIR=/absolute/path/to/posts npm run dev
 ```
 
 ## Publish Workflow
