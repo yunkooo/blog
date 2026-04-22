@@ -21,15 +21,18 @@ jobs:
           fetch-depth: 1
           token: ${{ secrets.GH_PAT }}
 
-      - name: Configure Git for private submodules
+      - name: Resolve posts repository commit
         run: |
-          git config --global url."https://x-access-token:${GH_PAT}@github.com/".insteadOf "https://github.com/"
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          echo "POSTS_REF=$(git rev-parse HEAD:content-source/posts)" >> "$GITHUB_ENV"
 
-      - name: Checkout submodules
-        run: |
-          git submodule sync --recursive
-          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf "x-access-token:${GH_PAT}" | base64)" submodule update --init --recursive
+      - name: Checkout posts repository at pinned commit
+        uses: actions/checkout@v4
+        with:
+          repository: yunkooo/blog-posts
+          ref: ${{ env.POSTS_REF }}
+          path: content-source/posts
+          fetch-depth: 1
+          token: ${{ secrets.GH_PAT }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
