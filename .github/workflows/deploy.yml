@@ -13,21 +13,23 @@ jobs:
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      GH_PAT: ${{ secrets.GH_PAT }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
+          token: ${{ secrets.GH_PAT }}
 
       - name: Configure Git for private submodules
-        run: git config --global url."https://x-access-token:${GH_PAT}@github.com/".insteadOf "https://github.com/"
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          git config --global url."https://x-access-token:${GH_PAT}@github.com/".insteadOf "https://github.com/"
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
       - name: Checkout submodules
         run: |
           git submodule sync --recursive
-          git submodule update --init --recursive
+          git -c http.https://github.com/.extraheader="AUTHORIZATION: basic $(printf "x-access-token:${GH_PAT}" | base64)" submodule update --init --recursive
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
