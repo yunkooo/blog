@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTheme } from "@/components/theme-provider";
 
 function SunIcon() {
@@ -31,14 +32,12 @@ function MoonIcon() {
   );
 }
 
-export function SiteHeader({
-  currentSection,
-}: {
-  currentSection: "posts" | "about";
-}) {
+export function SiteHeader() {
   const { isDarkMode, isMounted, toggleDarkMode } = useTheme();
+  const pathname = usePathname();
   const inactiveLinkClass = "text-muted-foreground transition-colors hover:text-foreground";
   const activeLinkClass = "text-foreground";
+  const currentSection = pathname === "/about" ? "about" : "posts";
 
   return (
     <header className="flex items-center justify-between border-b border-border py-6">
