@@ -88,10 +88,10 @@ export default async function PostDetailPage({ params }: PostPageProps) {
                 <span>{post.readingTimeText}</span>
               </div>
 
-              <h1 className="mt-4 text-[1.9rem] font-semibold tracking-tight sm:text-[2.45rem]">
+              <h1 className="mt-4 text-[2.1rem] font-semibold tracking-tight sm:text-[2.8rem]">
                 {post.title}
               </h1>
-              <p className="mt-3 w-full text-base leading-8 text-muted-foreground sm:text-lg">
+              <p className="mt-3 w-full text-[1.05rem] leading-8 text-muted-foreground sm:text-[1.14rem]">
                 {post.description}
               </p>
 

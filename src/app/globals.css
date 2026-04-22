@@ -148,22 +148,22 @@
     font-family:
       "Apple SD Gothic Neo", "Noto Sans KR", "Pretendard Variable", "Pretendard",
       "Malgun Gothic", system-ui, sans-serif;
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: 450;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
 
   .post-content h2 {
-    font-size: clamp(1.55rem, 1.25rem + 1vw, 1.9rem);
+    font-size: clamp(1.72rem, 1.38rem + 1vw, 2.02rem);
   }
 
   .post-content h3 {
-    font-size: clamp(1.28rem, 1.12rem + 0.6vw, 1.5rem);
+    font-size: clamp(1.4rem, 1.18rem + 0.7vw, 1.62rem);
   }
 
   .post-content h4 {
-    font-size: clamp(1.1rem, 1.02rem + 0.35vw, 1.2rem);
+    font-size: clamp(1.18rem, 1.06rem + 0.4vw, 1.3rem);
   }
 
   .post-content > * + * {
@@ -187,9 +187,9 @@
   .post-content li,
   .post-content blockquote {
     color: color-mix(in srgb, var(--foreground) 76%, var(--muted-foreground) 24%);
-    font-size: 1rem;
+    font-size: 1.0625rem;
     font-weight: 450;
-    line-height: 1.95;
+    line-height: 1.9;
     letter-spacing: 0.012em;
   }
 
@@ -224,7 +224,7 @@
   .post-content blockquote {
     border-left: 3px solid var(--border);
     padding-left: 1rem;
-    font-size: 1rem;
+    font-size: 1.0625rem;
   }
 
   .post-content code {
@@ -242,7 +242,7 @@
     background: color-mix(in srgb, var(--muted) 72%, transparent);
     border-radius: 1rem;
     padding: 1.15rem 1.25rem;
-    font-size: 0.97rem;
+    font-size: 1rem;
     line-height: 1.8;
   }
 
