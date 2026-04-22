@@ -11,13 +11,17 @@ Next.js 기반 개인 기술 블로그입니다.
 ## Architecture
 
 ```mermaid
-flowchart LR
+flowchart TD
+  note["push만으로는 공개 안 됨"]
   posts["blog-posts<br/>글 저장소"] --> pointer["blog<br/>submodule pointer 갱신"]
   pointer --> actions["GitHub Actions"]
   actions --> vercel["Vercel 배포"]
   vercel --> site["yunkoo.dev"]
 
-  posts -. "push만으로는 공개 안 됨" .-> site
+  note ~~~ posts
+  posts -.-> site
+
+  style note fill:transparent,stroke:transparent,color:#8a8f98
 ```
 
 글은 `blog-posts`에서 작성하지만, 실제 배포는 `blog` 저장소의 submodule pointer가 갱신될 때만 실행됩니다.
