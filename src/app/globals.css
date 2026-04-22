@@ -222,7 +222,7 @@
   }
 
   .post-content blockquote {
-    border-left: 3px solid var(--border);
+    border-left: 3px solid color-mix(in srgb, var(--border) 78%, var(--foreground) 22%);
     padding-left: 1rem;
     font-size: 1.0625rem;
   }
@@ -256,7 +256,13 @@
 
   .post-content a {
     text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--foreground) 34%, transparent);
     text-underline-offset: 0.18em;
+    transition: text-decoration-color 150ms ease;
+  }
+
+  .post-content a:hover {
+    text-decoration-color: currentColor;
   }
 
   .post-content :is(h2, h3, h4, h5, h6) > a[aria-hidden="true"] {

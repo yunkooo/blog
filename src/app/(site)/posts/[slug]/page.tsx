@@ -94,14 +94,14 @@ export default async function PostDetailPage({ params }: PostPageProps) {
       <article className="px-0 py-1 sm:py-2">
         <Link
           href="/"
-          className="inline-flex items-center text-sm text-muted-foreground transition-colors hover:text-foreground"
+          className="inline-flex items-center rounded-md text-sm text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
         >
           목록으로 돌아가기
         </Link>
 
         <header className="mt-4 border-b border-border pb-6 sm:pb-7">
           <div className="flex flex-wrap items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="rounded-full border border-border/80 px-2.5 py-1 text-xs uppercase tracking-[0.14em]">
+            <span className="rounded-full border border-border/70 px-2.5 py-1 text-xs uppercase tracking-[0.14em]">
               {post.category}
             </span>
             <time dateTime={post.publishedAt}>{formatKoreanDate(post.publishedAt)}</time>
@@ -123,7 +123,7 @@ export default async function PostDetailPage({ params }: PostPageProps) {
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-full border border-border bg-background px-3 py-1 text-sm text-muted-foreground"
+                  className="rounded-full border border-border/80 bg-background px-3 py-1 text-sm text-muted-foreground"
                 >
                   #{tag}
                 </span>

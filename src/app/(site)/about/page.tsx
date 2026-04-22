@@ -48,7 +48,7 @@ export default function AboutPage() {
             <h1 className="mt-3 text-[1.65rem] font-semibold tracking-tight sm:text-[2.15rem]">
               우당탕탕 삽질중인 개발자 이윤구입니다
             </h1>
-            <div className="mt-20 max-w-3xl space-y-2.5 text-muted-foreground">
+            <div className="mt-16 max-w-3xl space-y-2.5 text-muted-foreground sm:mt-20">
               <p>사용자가 불편 없이 머무를 수 있는 화면을 만드는 일을 좋아합니다.</p>
               <p>
                 구조를 단정하게 정리하고, 작은 문제도 꾸준히 개선하면서 안정적인 사용자 경험을
@@ -58,7 +58,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mx-auto w-full max-w-[220px] sm:max-w-[232px] lg:mx-0 lg:mt-1 lg:justify-self-end">
-            <div className="overflow-hidden rounded-[2rem] border border-border/80 bg-background p-2">
+            <div className="overflow-hidden rounded-[2rem] border border-border/70 bg-background p-2">
               <div className="overflow-hidden rounded-[1.35rem] bg-secondary">
                 <Image
                   src="/resume-profile.jpg"
@@ -88,7 +88,7 @@ export default function AboutPage() {
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="transition-colors hover:text-muted-foreground"
+                      className="rounded-md transition-colors hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
                     >
                       {item.value}
                     </a>

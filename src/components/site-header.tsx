@@ -35,16 +35,21 @@ function MoonIcon() {
 export function SiteHeader() {
   const { isDarkMode, isMounted, toggleDarkMode } = useTheme();
   const pathname = usePathname();
-  const inactiveLinkClass = "text-muted-foreground transition-colors hover:text-foreground";
-  const activeLinkClass = "text-foreground";
+  const linkBaseClass =
+    "rounded-md px-1 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40";
+  const inactiveLinkClass = `${linkBaseClass} text-muted-foreground hover:text-foreground`;
+  const activeLinkClass = `${linkBaseClass} text-foreground`;
   const currentSection = pathname === "/about" ? "about" : "posts";
 
   return (
-    <header className="flex items-center justify-between border-b border-border py-6">
-      <Link href="/" className="flex items-center gap-3">
+    <header className="flex items-center justify-between border-b border-border/80 py-5 sm:py-6">
+      <Link
+        href="/"
+        className="flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
+      >
         <span
           aria-hidden="true"
-          className="relative top-[2px] block size-[30px] bg-foreground transition-colors duration-200"
+          className="relative top-[2px] block size-7 bg-foreground transition-colors duration-200"
           style={{
             WebkitMaskImage: "url('/blog-logo.svg')",
             maskImage: "url('/blog-logo.svg')",
@@ -56,7 +61,7 @@ export function SiteHeader() {
             maskSize: "contain",
           }}
         />
-        <h1 className="text-xl">yunkoo.dev</h1>
+        <h1 className="text-lg font-medium tracking-[-0.02em] sm:text-xl">yunkoo.dev</h1>
       </Link>
 
       <div className="flex items-center gap-4">
@@ -74,7 +79,7 @@ export function SiteHeader() {
 
         <button
           onClick={toggleDarkMode}
-          className="rounded-lg p-2 transition-colors hover:bg-muted"
+          className="rounded-lg p-2 transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
           aria-label="Toggle dark mode"
           type="button"
         >
