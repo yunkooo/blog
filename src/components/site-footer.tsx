@@ -28,9 +28,9 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="space-y-1 text-sm text-muted-foreground sm:text-right">
+        <div className="space-y-1 text-xs text-muted-foreground sm:text-right">
           <p>© 2026 yunkoo</p>
-          <p>kooruen@gmail.com</p>
+          <p>All rights reserved.</p>
         </div>
       </div>
     </footer>
