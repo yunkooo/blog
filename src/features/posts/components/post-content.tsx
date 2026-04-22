@@ -4,8 +4,10 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
+import { Callout } from "@/components/callout";
 
 const mdxComponents = {
+  Callout,
   a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
     const isExternal = href.startsWith("http://") || href.startsWith("https://");
 
