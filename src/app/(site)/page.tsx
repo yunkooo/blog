@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { formatKoreanDate, getAllPosts } from "@/lib/posts";
 import { siteConfig } from "@/lib/site";
+import { getAllPosts } from "@/posts/api";
+import { formatKoreanDate } from "@/posts/utils/format-korean-date";
 
 export const metadata: Metadata = {
   description: "프론트엔드 개발 기록과 회고를 모아둔 글 목록입니다.",

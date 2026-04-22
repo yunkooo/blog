@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  formatKoreanDate,
-  getPostBySlug,
-  getPostSlugs,
-  renderPostContent,
-} from "@/lib/posts";
+import { getPostBySlug, getPostSlugs } from "@/posts/api";
+import { renderPostContent } from "@/posts/components/post-content";
+import { formatKoreanDate } from "@/posts/utils/format-korean-date";
 import { siteConfig } from "@/lib/site";
 
 type PostPageProps = {
