@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     description: post.description,
     alternates: {
       canonical: `/posts/${post.slug}`,
+      types: {
+        "application/rss+xml": siteConfig.rssUrl,
+      },
     },
     openGraph: {
       title: siteConfig.title,

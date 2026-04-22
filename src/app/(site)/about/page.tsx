@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   description: "프론트엔드 개발자 이윤구에 대한 간단한 소개 페이지입니다.",
   alternates: {
     canonical: "/about",
+    types: {
+      "application/rss+xml": siteConfig.rssUrl,
+    },
   },
   openGraph: {
     title: siteConfig.title,

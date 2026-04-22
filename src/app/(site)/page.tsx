@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   alternates: {
     canonical: "/",
+    types: {
+      "application/rss+xml": siteConfig.rssUrl,
+    },
   },
   openGraph: {
     title: siteConfig.title,
