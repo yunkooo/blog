@@ -4,15 +4,47 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import { Callout, CompareBox, KeyPoint, MermaidDiagram, StepList } from "@/components/mdx";
+import {
+  AsideNote,
+  Callout,
+  Checklist,
+  CodePanel,
+  CompareBox,
+  DefinitionBox,
+  FileTree,
+  InsightCard,
+  KeyPoint,
+  LeadText,
+  MermaidDiagram,
+  MiniCardGrid,
+  QuoteBlock,
+  SectionBreak,
+  Spotlight,
+  StepList,
+  SummaryBox,
+  TerminalBlock,
+} from "@/components/mdx";
 import { rehypeMermaidCodeBlocks } from "@/features/posts/components/rehype-mermaid-code-blocks";
 
 const mdxComponents = {
+  AsideNote,
   Callout,
+  Checklist,
+  CodePanel,
   CompareBox,
+  DefinitionBox,
+  FileTree,
+  InsightCard,
   KeyPoint,
+  LeadText,
   MermaidDiagram,
+  MiniCardGrid,
+  QuoteBlock,
+  SectionBreak,
+  Spotlight,
   StepList,
+  SummaryBox,
+  TerminalBlock,
   a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
     const isExternal = href.startsWith("http://") || href.startsWith("https://");
 

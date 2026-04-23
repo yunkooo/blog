@@ -199,28 +199,28 @@
     letter-spacing: 0;
   }
 
-  .post-content ul,
-  .post-content ol {
+  .post-content ul:not(.not-prose),
+  .post-content ol:not(.not-prose) {
     padding-left: 0;
   }
 
-  .post-content > ul,
-  .post-content > ol {
+  .post-content > ul:not(.not-prose),
+  .post-content > ol:not(.not-prose) {
     display: grid;
     gap: 0.75rem;
     margin-top: 1.6rem;
   }
 
-  .post-content > ul {
+  .post-content > ul:not(.not-prose) {
     list-style: none;
   }
 
-  .post-content > ul > li {
+  .post-content > ul:not(.not-prose) > li {
     position: relative;
     padding-left: 1.35rem;
   }
 
-  .post-content > ul > li::before {
+  .post-content > ul:not(.not-prose) > li::before {
     position: absolute;
     top: 0.86em;
     left: 0.15rem;
@@ -231,18 +231,18 @@
     content: "";
   }
 
-  .post-content > ol {
+  .post-content > ol:not(.not-prose) {
     counter-reset: post-list;
     list-style: none;
   }
 
-  .post-content > ol > li {
+  .post-content > ol:not(.not-prose) > li {
     position: relative;
     counter-increment: post-list;
     padding-left: 2.15rem;
   }
 
-  .post-content > ol > li::before {
+  .post-content > ol:not(.not-prose) > li::before {
     position: absolute;
     top: 0.25rem;
     left: 0;
@@ -295,12 +295,18 @@
 
   .post-content pre {
     overflow-x: auto;
-    border: 1px solid var(--border);
-    background: color-mix(in srgb, var(--muted) 72%, transparent);
+    border: 1px solid color-mix(in srgb, var(--border) 82%, var(--foreground) 18%);
+    border-left: 4px solid color-mix(in srgb, var(--foreground) 24%, var(--border) 76%);
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--muted) 58%, transparent),
+      color-mix(in srgb, var(--background) 88%, var(--muted) 12%)
+    );
     border-radius: 1rem;
-    padding: 1.15rem 1.25rem;
-    font-size: 1rem;
-    line-height: 1.8;
+    padding: 1.05rem 1.2rem;
+    font-size: 0.98rem;
+    line-height: 1.85;
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--background) 70%, transparent);
   }
 
   .post-content pre code {
