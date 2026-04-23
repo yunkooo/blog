@@ -1,7 +1,11 @@
 export default function PostDetailLoading() {
   return (
-    <main className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10">
-      <article className="px-0 py-1 sm:py-2" aria-label="글을 불러오는 중">
+    <main
+      className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10"
+      role="status"
+      aria-label="글을 불러오는 중"
+    >
+      <article className="px-0 py-1 sm:py-2">
         <div className="h-5 w-24 animate-pulse rounded bg-muted" />
 
         <header className="mt-4 border-b border-border pb-6 sm:pb-7">

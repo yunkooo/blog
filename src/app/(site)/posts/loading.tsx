@@ -1,9 +1,5 @@
-import { PostsListLoadingSkeleton } from "@/features/posts/components/posts-list-loading-skeleton";
+import { PostsListRouteLoading } from "@/features/posts/components/posts-list-route-loading";
 
 export default function PostsLoading() {
-  return (
-    <main className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10">
-      <PostsListLoadingSkeleton />
-    </main>
-  );
+  return <PostsListRouteLoading />;
 }
