@@ -28,8 +28,8 @@ export function ImageFrame({
       )}
     >
       {/* MDX posts can reference remote or local images without known dimensions. */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <div className="px-4 py-8 sm:px-6 sm:py-10">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={src}
           alt={alt}

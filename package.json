@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "validate:posts": "node scripts/validate-posts.mjs",
+    "check:publish": "node scripts/check-publish.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
