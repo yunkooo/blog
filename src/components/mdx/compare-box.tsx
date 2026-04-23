@@ -1,8 +1,8 @@
 type CompareBoxProps = {
   leftTitle: string;
   rightTitle: string;
-  leftItems: string[];
-  rightItems: string[];
+  leftItems?: string[] | string;
+  rightItems?: string[] | string;
 };
 
 export function CompareBox({ leftTitle, rightTitle, leftItems, rightItems }: CompareBoxProps) {
@@ -14,14 +14,16 @@ export function CompareBox({ leftTitle, rightTitle, leftItems, rightItems }: Com
   );
 }
 
-function CompareColumn({ title, items }: { title: string; items: string[] }) {
+function CompareColumn({ title, items }: { title: string; items: string[] | string | undefined }) {
+  const normalizedItems = normalizeItems(items);
+
   return (
     <section className="rounded-2xl border border-border/80 bg-background px-4 py-4">
       <h4 className="text-sm font-medium uppercase tracking-[0.16em] text-muted-foreground">
         {title}
       </h4>
       <ul className="mt-3 space-y-2">
-        {items.map((item) => (
+        {normalizedItems.map((item) => (
           <li key={item} className="text-[0.98rem] leading-7 text-foreground/78">
             {item}
           </li>
@@ -29,4 +31,19 @@ function CompareColumn({ title, items }: { title: string; items: string[] }) {
       </ul>
     </section>
   );
+}
+
+function normalizeItems(items: string[] | string | undefined) {
+  if (Array.isArray(items)) {
+    return items;
+  }
+
+  if (typeof items === "string") {
+    return items
+      .split("|")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
 }

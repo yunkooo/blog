@@ -1,11 +1,13 @@
 type StepListProps = {
-  items: string[];
+  items?: string[] | string;
 };
 
 export function StepList({ items }: StepListProps) {
+  const normalizedItems = normalizeItems(items);
+
   return (
     <ol className="not-prose my-6 space-y-3">
-      {items.map((item, index) => (
+      {normalizedItems.map((item, index) => (
         <li
           key={`${index}-${item}`}
           className="flex gap-3 rounded-2xl border border-border/80 bg-background px-4 py-3"
@@ -18,4 +20,19 @@ export function StepList({ items }: StepListProps) {
       ))}
     </ol>
   );
+}
+
+function normalizeItems(items: StepListProps["items"]) {
+  if (Array.isArray(items)) {
+    return items;
+  }
+
+  if (typeof items === "string") {
+    return items
+      .split("|")
+      .map((item) => item.trim())
+      .filter(Boolean);
+  }
+
+  return [];
 }
