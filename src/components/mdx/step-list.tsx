@@ -35,7 +35,7 @@ export function StepList({
       marker={(_, index) => (
         <span
           className={joinClassNames(
-            "flex size-7 items-center justify-center rounded-full border text-sm font-medium",
+            "flex h-7 w-7 min-w-7 shrink-0 aspect-square items-center justify-center rounded-full border text-sm font-medium",
             getMdxMarkerClassName(tone),
           )}
         >

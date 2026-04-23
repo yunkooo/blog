@@ -1,7 +1,6 @@
 import {
   getMdxMarkerClassName,
   MdxBlockTitle,
-  MdxCard,
   MdxList,
   type MdxSize,
   type MdxToneInput,
@@ -25,14 +24,16 @@ export function SummaryBox({
   size = "md",
   variant = "soft",
 }: SummaryBoxProps) {
+  void variant;
+
   return (
-    <MdxCard tone={tone} size={size} variant={variant} className="my-7">
+    <section className="not-prose my-8 border-y border-border/80 py-5">
       <MdxBlockTitle tone={tone} className="tracking-[0.18em]">
         {title}
       </MdxBlockTitle>
       <MdxList
         items={items}
-        className="mt-4 gap-2.5"
+        className="mt-4 gap-2"
         size={size}
         marker={
           <span
@@ -43,6 +44,6 @@ export function SummaryBox({
           />
         }
       />
-    </MdxCard>
+    </section>
   );
 }

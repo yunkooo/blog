@@ -259,7 +259,7 @@ export function MdxCodeFrame({
       className={joinClassNames(
         "not-prose my-6 overflow-hidden rounded-[1.35rem] border",
         isTerminal
-          ? "border-foreground/10 bg-foreground text-background"
+          ? "border-border/80 bg-muted/35 text-foreground"
           : "border-border/80 bg-background",
       )}
     >
@@ -267,7 +267,7 @@ export function MdxCodeFrame({
         className={joinClassNames(
           "flex items-center justify-between border-b px-4 py-2.5 text-sm",
           isTerminal
-            ? "border-background/10 text-background/70"
+            ? "border-border/70 bg-muted/35 text-muted-foreground"
             : "border-border/70 bg-muted/30 text-muted-foreground",
         )}
       >
@@ -299,7 +299,7 @@ export function MdxCodeFrame({
         <code>
           {lines.map((line, index) => (
             <span key={`${index}-${line}`} className="block">
-              {isTerminal ? <span className="select-none text-background/45">$ </span> : null}
+              {isTerminal ? <span className="select-none text-muted-foreground">$ </span> : null}
               {line}
             </span>
           ))}
@@ -327,7 +327,7 @@ export function MdxHighlight({
       size={isStrong ? "lg" : size}
       variant={normalizedVariant}
       className={joinClassNames(
-        isStrong ? "bg-gradient-to-br from-muted/60 via-background to-muted/30" : "",
+        isStrong ? "bg-background" : "",
         variant === "minimal" ? "shadow-none" : "",
       )}
     >

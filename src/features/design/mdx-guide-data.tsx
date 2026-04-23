@@ -205,6 +205,71 @@ export const basicDocs: MdxGuideDoc[] = [
 
 export const componentDocs: MdxGuideDoc[] = [
   {
+    slug: "tone-사용법",
+    title: "tone 사용법",
+    category: "component",
+    description:
+      "tone은 컴포넌트의 감정을 정하는 값입니다. 내용의 성격에 맞춰 neutral, info, success, warning, danger 중 하나를 고릅니다.",
+    code: [
+      '<Callout tone="info" title="정보">',
+      "  독자가 알아두면 좋은 배경 설명을 적습니다.",
+      "</Callout>",
+      "",
+      '<Callout tone="success" title="완료">',
+      "  잘 끝난 작업이나 좋은 결론을 정리합니다.",
+      "</Callout>",
+      "",
+      '<Callout tone="warning" title="주의">',
+      "  놓치기 쉬운 확인 사항을 알려줍니다.",
+      "</Callout>",
+    ].join("\n"),
+    preview: <ToneGuidePreview />,
+    note:
+      "처음에는 neutral은 일반 설명, info는 참고 정보, success는 완료/좋은 결론, warning은 주의, danger는 위험/실패 가능성으로 기억하면 충분합니다.",
+    examples: [
+      {
+        title: "tone을 고르는 빠른 기준",
+        code: [
+          "neutral: 일반 메모나 차분한 정리",
+          "info: 배경지식, 참고 설명, 팁",
+          "success: 완료, 좋은 결론, 권장 흐름",
+          "warning: 실수하기 쉬운 부분, 발행 전 확인",
+          "danger: 데이터 삭제, 실패 가능성, 강한 주의",
+        ].join("\n"),
+        preview: <ToneReferenceList />,
+      },
+      {
+        title: "같은 문장을 tone만 바꿔 비교하기",
+        code: [
+          '<KeyPoint title="발행 전 확인" tone="info">',
+          "  이미지를 올렸는지 확인합니다.",
+          "</KeyPoint>",
+          "",
+          '<KeyPoint title="발행 전 확인" tone="warning">',
+          "  이미지를 올리지 않으면 본문에서 깨져 보일 수 있습니다.",
+          "</KeyPoint>",
+          "",
+          '<KeyPoint title="삭제 주의" tone="danger">',
+          "  원격 브랜치를 지우기 전에는 반드시 대상 브랜치를 다시 확인합니다.",
+          "</KeyPoint>",
+        ].join("\n"),
+        preview: (
+          <div className="space-y-3">
+            <KeyPoint title="발행 전 확인" tone="info">
+              이미지를 올렸는지 확인합니다.
+            </KeyPoint>
+            <KeyPoint title="발행 전 확인" tone="warning">
+              이미지를 올리지 않으면 본문에서 깨져 보일 수 있습니다.
+            </KeyPoint>
+            <KeyPoint title="삭제 주의" tone="danger">
+              원격 브랜치를 지우기 전에는 반드시 대상 브랜치를 다시 확인합니다.
+            </KeyPoint>
+          </div>
+        ),
+      },
+    ],
+  },
+  {
     slug: "leadtext",
     title: "LeadText",
     category: "component",
@@ -1005,6 +1070,24 @@ export const componentDocs: MdxGuideDoc[] = [
 
 export const allMdxGuideDocs = [...basicDocs, ...componentDocs];
 
+const toneSupportedSlugs = new Set([
+  "spotlight",
+  "keypoint",
+  "callout",
+  "asidenote",
+  "definitionbox",
+  "summarybox",
+  "checklist",
+  "steplist",
+  "comparebox",
+  "minicardgrid",
+  "toolgrid",
+  "resourcelinks",
+  "insightcard",
+  "timeline",
+  "imageframe",
+]);
+
 export function getMdxGuideHref(doc: MdxGuideDoc) {
   return `/design/mdx/${encodeURIComponent(doc.slug)}`;
 }
@@ -1168,6 +1251,7 @@ export function ExampleCard({ doc }: { doc: MdxGuideDoc }) {
         <h2 className="text-2xl font-semibold tracking-tight">{doc.title}</h2>
         <p className="mt-2 leading-7 text-muted-foreground">{doc.description}</p>
         {doc.note ? <p className="mt-2 text-sm leading-6 text-muted-foreground/85">{doc.note}</p> : null}
+        {toneSupportedSlugs.has(doc.slug) ? <ComponentToneHelp /> : null}
       </div>
       <div>
         <div className="min-w-0 border-b border-border/70 bg-muted/10 p-5">
@@ -1226,6 +1310,82 @@ function ExampleVariant({ example }: { example: MdxGuideExample }) {
         <CodeSnippet code={example.code} />
       </div>
     </section>
+  );
+}
+
+function ComponentToneHelp() {
+  return (
+    <div className="mt-3 rounded-2xl border border-border/70 bg-muted/20 px-4 py-3 text-sm leading-6 text-muted-foreground">
+      <p>
+        <span className="font-medium text-foreground">tone 사용 팁:</span> 평범한 설명은
+        neutral, 참고 정보는 info, 좋은 결론은 success, 주의할 점은 warning, 위험한 작업은
+        danger를 먼저 떠올리면 됩니다. 자세한 기준은{" "}
+        <Link
+          href="/design/mdx/tone-사용법"
+          className="font-medium text-foreground underline underline-offset-4"
+        >
+          tone 사용법
+        </Link>
+        에 모아두었습니다.
+      </p>
+    </div>
+  );
+}
+
+function ToneGuidePreview() {
+  return (
+    <div className="space-y-3">
+      <Callout tone="info" title="정보" size="sm">
+        독자가 알아두면 좋은 배경 설명을 적습니다.
+      </Callout>
+      <Callout tone="success" title="완료" size="sm">
+        잘 끝난 작업이나 좋은 결론을 정리합니다.
+      </Callout>
+      <Callout tone="warning" title="주의" size="sm">
+        놓치기 쉬운 확인 사항을 알려줍니다.
+      </Callout>
+    </div>
+  );
+}
+
+function ToneReferenceList() {
+  const toneItems = [
+    {
+      tone: "neutral",
+      label: "neutral",
+      description: "일반 메모, 차분한 정리, 강조가 크지 않은 보조 설명",
+    },
+    {
+      tone: "info",
+      label: "info",
+      description: "배경지식, 참고 설명, 팁, 독자가 알면 이해가 쉬워지는 정보",
+    },
+    {
+      tone: "success",
+      label: "success",
+      description: "완료된 작업, 좋은 결론, 권장 흐름, 긍정적인 회고",
+    },
+    {
+      tone: "warning",
+      label: "warning",
+      description: "실수하기 쉬운 부분, 발행 전 확인, 놓치면 문제가 생길 수 있는 내용",
+    },
+    {
+      tone: "danger",
+      label: "danger",
+      description: "삭제, 실패 가능성, 강한 주의가 필요한 위험한 작업",
+    },
+  ] as const;
+
+  return (
+    <div className="grid gap-2">
+      {toneItems.map(({ tone, label, description }) => (
+        <div key={tone} className="grid gap-2 rounded-2xl border border-border/70 bg-background p-4 sm:grid-cols-[6.5rem_minmax(0,1fr)]">
+          <span className="text-sm font-medium text-foreground">{label}</span>
+          <span className="text-sm leading-6 text-muted-foreground">{description}</span>
+        </div>
+      ))}
+    </div>
   );
 }
 

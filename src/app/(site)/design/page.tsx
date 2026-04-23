@@ -37,7 +37,8 @@ export const metadata: Metadata = {
 
 export default function DesignPage() {
   const firstBasicDoc = basicDocs[0];
-  const firstComponentDoc = componentDocs.find((doc) => doc.slug === "callout") ?? componentDocs[0];
+  const firstComponentDoc =
+    componentDocs.find((doc) => doc.slug === "tone-사용법") ?? componentDocs[0];
 
   return (
     <MdxGuideLayout>
@@ -62,7 +63,7 @@ export default function DesignPage() {
         <GuideLinkCard
           href={getMdxGuideHref(firstComponentDoc)}
           title="MDX 컴포넌트"
-          description="글 안에서 쓰는 모든 커스텀 컴포넌트의 용도, 미리보기, 복사 가능한 예시를 확인합니다."
+          description="tone 고르는 법부터 모든 커스텀 컴포넌트의 용도, 미리보기, 복사 가능한 예시를 확인합니다."
         />
       </section>
     </MdxGuideLayout>

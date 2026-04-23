@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
 import {
-  MdxHighlight,
+  MdxBlockTitle,
+  getMdxToneTextClassName,
   type MdxSize,
   type MdxToneInput,
   type MdxVariant,
+  joinClassNames,
 } from "@/components/mdx/mdx-primitives";
 
 type InsightCardProps = {
@@ -23,9 +25,23 @@ export function InsightCard({
   variant = "plain",
   icon = "✦",
 }: InsightCardProps) {
+  void size;
+  void variant;
+
   return (
-    <MdxHighlight title={title} icon={icon} tone={tone} size={size} variant={variant}>
-      {children}
-    </MdxHighlight>
+    <aside className="not-prose my-7 flex gap-3">
+      <span
+        aria-hidden="true"
+        className={joinClassNames("mt-1.5 shrink-0 text-sm", getMdxToneTextClassName(tone))}
+      >
+        {icon}
+      </span>
+      <div>
+        <MdxBlockTitle tone={tone} className="mb-2 text-xs tracking-[0.18em]">
+          {title}
+        </MdxBlockTitle>
+        <div className="text-[1.02rem] leading-8 text-foreground/80">{children}</div>
+      </div>
+    </aside>
   );
 }

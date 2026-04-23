@@ -32,11 +32,16 @@ export function Callout({
   title?: string;
 }) {
   return (
-    <MdxCard tone={tone} size={size} variant={variant}>
-      <MdxBlockTitle tone={tone} className="mb-2 tracking-[0.18em]">
+    <MdxCard
+      tone={tone}
+      size={size}
+      variant={variant}
+      className="!rounded-xl !border-l-4 !bg-background !px-4 !py-3"
+    >
+      <MdxBlockTitle tone={tone} className="mb-1.5 tracking-[0.18em]">
         {title ?? toneLabels[tone]}
       </MdxBlockTitle>
-      <div className="space-y-2 text-[1rem] leading-8 text-foreground/80">{children}</div>
+      <div className="space-y-2 text-[0.98rem] leading-7 text-foreground/80">{children}</div>
     </MdxCard>
   );
 }

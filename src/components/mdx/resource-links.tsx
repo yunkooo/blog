@@ -41,7 +41,7 @@ export function ResourceLinks({
               target={href.startsWith("http") ? "_blank" : undefined}
               rel={href.startsWith("http") ? "noreferrer noopener" : undefined}
               className={joinClassNames(
-                "group flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-[0.98rem] text-foreground/82 transition-colors hover:bg-muted/45",
+                "group flex items-center justify-between gap-3 rounded-2xl border px-4 py-3 text-[0.98rem] text-foreground/82 !no-underline transition-colors hover:bg-muted/45 hover:!no-underline",
                 getMdxToneClassName(tone, "soft"),
               )}
             >
