@@ -1,38 +1,47 @@
+import {
+  getMdxMarkerClassName,
+  MdxList,
+  type MdxSize,
+  type MdxToneInput,
+  type MdxVariant,
+  getMdxToneClassName,
+  joinClassNames,
+} from "@/components/mdx/mdx-primitives";
+import type { DelimitedItems } from "@/components/mdx/mdx-utils";
+
 type StepListProps = {
-  items?: string[] | string;
+  items?: DelimitedItems;
+  tone?: MdxToneInput;
+  size?: MdxSize;
+  variant?: MdxVariant;
 };
 
-export function StepList({ items }: StepListProps) {
-  const normalizedItems = normalizeItems(items);
-
+export function StepList({
+  items,
+  tone = "neutral",
+  size = "md",
+  variant = "plain",
+}: StepListProps) {
   return (
-    <ol className="not-prose my-6 space-y-3">
-      {normalizedItems.map((item, index) => (
-        <li
-          key={`${index}-${item}`}
-          className="flex gap-3 rounded-2xl border border-border/80 bg-background px-4 py-3"
+    <MdxList
+      items={items}
+      ordered
+      className="not-prose my-6 space-y-3"
+      size={size}
+      itemClassName={joinClassNames(
+        "rounded-2xl border px-4 py-3",
+        getMdxToneClassName(tone, variant),
+      )}
+      marker={(_, index) => (
+        <span
+          className={joinClassNames(
+            "flex size-7 items-center justify-center rounded-full border text-sm font-medium",
+            getMdxMarkerClassName(tone),
+          )}
         >
-          <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-foreground text-sm font-medium text-background">
-            {index + 1}
-          </span>
-          <span className="pt-0.5 text-[1rem] leading-7 text-foreground/80">{item}</span>
-        </li>
-      ))}
-    </ol>
+          {index + 1}
+        </span>
+      )}
+    />
   );
-}
-
-function normalizeItems(items: StepListProps["items"]) {
-  if (Array.isArray(items)) {
-    return items;
-  }
-
-  if (typeof items === "string") {
-    return items
-      .split("|")
-      .map((item) => item.trim())
-      .filter(Boolean);
-  }
-
-  return [];
 }

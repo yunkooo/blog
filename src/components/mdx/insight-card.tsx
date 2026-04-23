@@ -1,18 +1,31 @@
 import type { ReactNode } from "react";
+import {
+  MdxHighlight,
+  type MdxSize,
+  type MdxToneInput,
+  type MdxVariant,
+} from "@/components/mdx/mdx-primitives";
 
 type InsightCardProps = {
   title?: string;
   children: ReactNode;
+  tone?: MdxToneInput;
+  size?: MdxSize;
+  variant?: MdxVariant | "minimal";
+  icon?: ReactNode;
 };
 
-export function InsightCard({ title = "배운 점", children }: InsightCardProps) {
+export function InsightCard({
+  title = "배운 점",
+  children,
+  tone = "neutral",
+  size = "md",
+  variant = "plain",
+  icon = "✦",
+}: InsightCardProps) {
   return (
-    <aside className="not-prose my-7 rounded-[1.35rem] border border-border/80 bg-background px-5 py-5 shadow-[0_12px_40px_rgba(0,0,0,0.035)] dark:shadow-none">
-      <p className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-        <span aria-hidden="true">✦</span>
-        <span>{title}</span>
-      </p>
-      <div className="mt-3 text-[1.04rem] leading-8 text-foreground/82">{children}</div>
-    </aside>
+    <MdxHighlight title={title} icon={icon} tone={tone} size={size} variant={variant}>
+      {children}
+    </MdxHighlight>
   );
 }

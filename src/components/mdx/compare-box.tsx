@@ -1,49 +1,59 @@
+import {
+  MdxBlockTitle,
+  MdxCard,
+  MdxList,
+  type MdxSize,
+  type MdxToneInput,
+  type MdxVariant,
+} from "@/components/mdx/mdx-primitives";
+import type { DelimitedItems } from "@/components/mdx/mdx-utils";
+
 type CompareBoxProps = {
   leftTitle: string;
   rightTitle: string;
-  leftItems?: string[] | string;
-  rightItems?: string[] | string;
+  leftItems?: DelimitedItems;
+  rightItems?: DelimitedItems;
+  leftTone?: MdxToneInput;
+  rightTone?: MdxToneInput;
+  size?: MdxSize;
+  variant?: MdxVariant;
 };
 
-export function CompareBox({ leftTitle, rightTitle, leftItems, rightItems }: CompareBoxProps) {
+export function CompareBox({
+  leftTitle,
+  rightTitle,
+  leftItems,
+  rightItems,
+  leftTone = "neutral",
+  rightTone = "neutral",
+  size = "md",
+  variant = "plain",
+}: CompareBoxProps) {
   return (
     <div className="not-prose my-6 grid gap-3 md:grid-cols-2">
-      <CompareColumn title={leftTitle} items={leftItems} />
-      <CompareColumn title={rightTitle} items={rightItems} />
+      <CompareColumn title={leftTitle} items={leftItems} tone={leftTone} size={size} variant={variant} />
+      <CompareColumn title={rightTitle} items={rightItems} tone={rightTone} size={size} variant={variant} />
     </div>
   );
 }
 
-function CompareColumn({ title, items }: { title: string; items: string[] | string | undefined }) {
-  const normalizedItems = normalizeItems(items);
-
+function CompareColumn({
+  title,
+  items,
+  tone,
+  size,
+  variant,
+}: {
+  title: string;
+  items: DelimitedItems;
+  tone: MdxToneInput;
+  size: MdxSize;
+  variant: MdxVariant;
+}) {
   return (
-    <section className="rounded-2xl border border-border/80 bg-background px-4 py-4">
-      <h4 className="text-sm font-medium uppercase tracking-[0.16em] text-muted-foreground">
-        {title}
-      </h4>
-      <ul className="mt-3 space-y-2">
-        {normalizedItems.map((item) => (
-          <li key={item} className="text-[0.98rem] leading-7 text-foreground/78">
-            {item}
-          </li>
-        ))}
-      </ul>
-    </section>
+    <MdxCard tone={tone} size={size} variant={variant} className="my-0 rounded-2xl">
+      <MdxBlockTitle tone={tone}>{title}</MdxBlockTitle>
+      <MdxList items={items} className="mt-3 gap-2" itemClassName="text-[0.98rem] leading-7" size={size} />
+    </MdxCard>
   );
-}
-
-function normalizeItems(items: string[] | string | undefined) {
-  if (Array.isArray(items)) {
-    return items;
-  }
-
-  if (typeof items === "string") {
-    return items
-      .split("|")
-      .map((item) => item.trim())
-      .filter(Boolean);
-  }
-
-  return [];
 }

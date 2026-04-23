@@ -1,28 +1,48 @@
-import { normalizeDelimitedItems, type DelimitedItems } from "@/components/mdx/mdx-utils";
+import {
+  getMdxMarkerClassName,
+  MdxBlockTitle,
+  MdxCard,
+  MdxList,
+  type MdxSize,
+  type MdxToneInput,
+  type MdxVariant,
+  joinClassNames,
+} from "@/components/mdx/mdx-primitives";
+import type { DelimitedItems } from "@/components/mdx/mdx-utils";
 
 type ChecklistProps = {
   title?: string;
   items?: DelimitedItems;
+  tone?: MdxToneInput;
+  size?: MdxSize;
+  variant?: MdxVariant;
 };
 
-export function Checklist({ title = "체크리스트", items }: ChecklistProps) {
-  const normalizedItems = normalizeDelimitedItems(items);
-
+export function Checklist({
+  title = "체크리스트",
+  items,
+  tone = "neutral",
+  size = "md",
+  variant = "plain",
+}: ChecklistProps) {
   return (
-    <section className="not-prose my-6 rounded-[1.35rem] border border-border/80 bg-background px-5 py-4">
-      <p className="text-sm font-medium uppercase tracking-[0.16em] text-muted-foreground">
-        {title}
-      </p>
-      <ul className="mt-4 grid gap-3">
-        {normalizedItems.map((item) => (
-          <li key={item} className="flex gap-3 text-[1rem] leading-7 text-foreground/80">
-            <span className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-md border border-foreground/20 bg-muted/45 text-[0.72rem] font-semibold text-foreground">
-              ✓
-            </span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </section>
+    <MdxCard tone={tone} size={size} variant={variant}>
+      <MdxBlockTitle tone={tone}>{title}</MdxBlockTitle>
+      <MdxList
+        items={items}
+        className="mt-4"
+        size={size}
+        marker={
+          <span
+            className={joinClassNames(
+              "mt-1 flex size-5 items-center justify-center rounded-md border text-[0.72rem] font-semibold",
+              getMdxMarkerClassName(tone, true),
+            )}
+          >
+            ✓
+          </span>
+        }
+      />
+    </MdxCard>
   );
 }

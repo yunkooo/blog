@@ -11,7 +11,7 @@ import {
   type DelimitedItems,
 } from "@/components/mdx/mdx-utils";
 
-type MiniCardGridProps = {
+type ToolGridProps = {
   items?: DelimitedItems;
   columns?: MdxColumns;
   tone?: MdxToneInput;
@@ -19,22 +19,16 @@ type MiniCardGridProps = {
   variant?: MdxVariant;
 };
 
-export function MiniCardGrid({
+export function ToolGrid({
   items,
   columns = 2,
   tone = "neutral",
   size = "md",
-  variant = "soft",
-}: MiniCardGridProps) {
-  const normalizedItems = normalizeDelimitedItems(items).map(parseTitleDescriptionItem);
+  variant = "plain",
+}: ToolGridProps) {
+  const tools = normalizeDelimitedItems(items).map(parseTitleDescriptionItem);
 
   return (
-    <MdxItemGrid
-      items={normalizedItems}
-      columns={columns}
-      tone={tone}
-      size={size}
-      variant={variant}
-    />
+    <MdxItemGrid items={tools} columns={columns} tone={tone} size={size} variant={variant} />
   );
 }

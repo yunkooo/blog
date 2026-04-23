@@ -1,36 +1,42 @@
 import type { ReactNode } from "react";
+import {
+  MdxBlockTitle,
+  MdxCard,
+  type MdxSize,
+  type MdxToneInput,
+  type MdxVariant,
+} from "@/components/mdx/mdx-primitives";
 
-type CalloutTone = "info" | "note" | "warning" | "success";
-
-const toneStyles: Record<CalloutTone, string> = {
-  info: "border-foreground/15 bg-muted/55 text-foreground",
-  note: "border-border bg-background text-foreground",
-  warning:
-    "border-amber-500/25 bg-amber-500/10 text-foreground dark:border-amber-300/25 dark:bg-amber-300/10",
-  success:
-    "border-emerald-500/25 bg-emerald-500/10 text-foreground dark:border-emerald-300/25 dark:bg-emerald-300/10",
-};
+type CalloutTone = MdxToneInput;
 
 const toneLabels: Record<CalloutTone, string> = {
+  neutral: "Note",
   info: "Info",
   note: "Note",
   warning: "Warning",
   success: "Summary",
+  danger: "Caution",
 };
 
 export function Callout({
   children,
   tone = "info",
+  size = "md",
+  variant = "soft",
+  title,
 }: {
   children: ReactNode;
   tone?: CalloutTone;
+  size?: MdxSize;
+  variant?: MdxVariant;
+  title?: string;
 }) {
   return (
-    <aside className={`rounded-2xl border px-5 py-4 ${toneStyles[tone]}`}>
-      <p className="mb-2 text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
-        {toneLabels[tone]}
-      </p>
+    <MdxCard tone={tone} size={size} variant={variant}>
+      <MdxBlockTitle tone={tone} className="mb-2 tracking-[0.18em]">
+        {title ?? toneLabels[tone]}
+      </MdxBlockTitle>
       <div className="space-y-2 text-[1rem] leading-8 text-foreground/80">{children}</div>
-    </aside>
+    </MdxCard>
   );
 }

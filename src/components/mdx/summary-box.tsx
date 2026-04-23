@@ -1,26 +1,48 @@
-import { normalizeDelimitedItems, type DelimitedItems } from "@/components/mdx/mdx-utils";
+import {
+  getMdxMarkerClassName,
+  MdxBlockTitle,
+  MdxCard,
+  MdxList,
+  type MdxSize,
+  type MdxToneInput,
+  type MdxVariant,
+  joinClassNames,
+} from "@/components/mdx/mdx-primitives";
+import type { DelimitedItems } from "@/components/mdx/mdx-utils";
 
 type SummaryBoxProps = {
   title?: string;
   items?: DelimitedItems;
+  tone?: MdxToneInput;
+  size?: MdxSize;
+  variant?: MdxVariant;
 };
 
-export function SummaryBox({ title = "정리", items }: SummaryBoxProps) {
-  const normalizedItems = normalizeDelimitedItems(items);
-
+export function SummaryBox({
+  title = "정리",
+  items,
+  tone = "neutral",
+  size = "md",
+  variant = "soft",
+}: SummaryBoxProps) {
   return (
-    <aside className="not-prose my-7 rounded-[1.35rem] border border-foreground/10 bg-muted/40 px-5 py-5">
-      <p className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
+    <MdxCard tone={tone} size={size} variant={variant} className="my-7">
+      <MdxBlockTitle tone={tone} className="tracking-[0.18em]">
         {title}
-      </p>
-      <ul className="mt-4 grid gap-2.5">
-        {normalizedItems.map((item) => (
-          <li key={item} className="flex gap-3 text-[1rem] leading-7 text-foreground/82">
-            <span className="mt-[0.58rem] size-1.5 shrink-0 rounded-full bg-foreground/55" />
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
-    </aside>
+      </MdxBlockTitle>
+      <MdxList
+        items={items}
+        className="mt-4 gap-2.5"
+        size={size}
+        marker={
+          <span
+            className={joinClassNames(
+              "mt-[0.58rem] block size-1.5 rounded-full border",
+              getMdxMarkerClassName(tone),
+            )}
+          />
+        }
+      />
+    </MdxCard>
   );
 }
