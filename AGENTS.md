@@ -1,7 +1,27 @@
 <!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# 이 프로젝트의 Next.js는 기존 지식과 다를 수 있다
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+현재 사용 중인 Next.js 버전은 breaking change가 포함될 수 있다. API, convention, 파일 구조가 기존 학습 데이터와 다를 수 있으므로 코드를 작성하기 전에 `node_modules/next/dist/docs/`에서 관련 문서를 먼저 확인한다. deprecation 안내도 반드시 확인한다.
 
-Do not run a full build on every request. Only run the build as a final verification step right before creating a Git commit or pushing to GitHub.
+매 요청마다 전체 빌드를 실행하지 않는다. 전체 빌드는 Git 커밋을 만들기 직전 또는 GitHub에 푸시하기 직전의 최종 검증 단계에서만 실행한다.
+
+## 커밋 작성 규칙
+
+커밋을 만들기 전에는 변경사항을 먼저 작은 단위로 세분화해서 분류한다.
+
+분류한 결과에서 서로 비슷한 종류의 변경사항은 하나의 커밋으로 묶는다. 예를 들어 디자인 개선, 문서 수정, 데이터 구조 변경, 배포 설정 변경처럼 목적이 같은 변경사항끼리 묶는다.
+
+커밋 메시지는 한국어로 작성한다.
+
+커밋 메시지는 첫 줄에 큰제목을 작성하고, 다음 줄부터 세부 변경사항을 bullet 형태로 작성한다. 첫 줄은 변경의 목적이 드러나게 짧게 작성하고, 세부 사항은 실제 변경 내용을 구체적으로 적는다.
+
+예시:
+
+```txt
+게시된 글 디자인 개선
+
+- MDX Mermaid 코드블록을 다크모드에 맞게 렌더링하도록 추가
+- KeyPoint 카드와 기본 글 리스트 스타일 개선
+- 글 본문 렌더러에 Mermaid MDX 처리 등록
+```
 <!-- END:nextjs-agent-rules -->
