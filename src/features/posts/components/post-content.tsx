@@ -4,12 +4,14 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
-import { Callout, CompareBox, KeyPoint, StepList } from "@/components/mdx";
+import { Callout, CompareBox, KeyPoint, MermaidDiagram, StepList } from "@/components/mdx";
+import { rehypeMermaidCodeBlocks } from "@/features/posts/components/rehype-mermaid-code-blocks";
 
 const mdxComponents = {
   Callout,
   CompareBox,
   KeyPoint,
+  MermaidDiagram,
   StepList,
   a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
     const isExternal = href.startsWith("http://") || href.startsWith("https://");
@@ -40,6 +42,7 @@ const mdxRemoteOptions: MDXRemoteProps["options"] = {
           },
         },
       ],
+      rehypeMermaidCodeBlocks,
       [rehypePrettyCode, { keepBackground: false, defaultLang: "plaintext" }],
     ],
   },
