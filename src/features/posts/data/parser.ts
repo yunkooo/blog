@@ -5,15 +5,27 @@ function getSlugFromFilename(filename: string) {
   return filename.replace(/\.mdx$/, "");
 }
 
-function calculateReadingTime(content: string) {
-  const textOnly = content
+function getTextOnlyContent(content: string) {
+  return content
     .replace(/```[\s\S]*?```/g, " ")
     .replace(/`[^`]*`/g, " ")
     .replace(/<[^>]+>/g, " ")
+    .replace(/[{}()[\]"'=]/g, " ")
     .replace(/[#>*_\-]/g, " ")
     .trim();
+}
 
-  const wordCount = textOnly.length === 0 ? 0 : textOnly.split(/\s+/).length;
+function calculateWordCount(content: string) {
+  const textOnly = getTextOnlyContent(content);
+
+  if (textOnly.length === 0) {
+    return 0;
+  }
+
+  return textOnly.split(/\s+/).length;
+}
+
+function calculateReadingTime(wordCount: number) {
   const minutes = Math.max(1, Math.ceil(wordCount / 180));
   return `${minutes} min read`;
 }
@@ -48,6 +60,62 @@ function normalizeDateField(value: unknown, field: "publishedAt" | "updatedAt", 
   throw new Error(`Post "${slug}" is missing a valid "${field}" field.`);
 }
 
+function normalizeStringArrayField(
+  value: unknown,
+  field: "summary" | "relatedQuestions",
+  slug: string,
+) {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (Array.isArray(value)) {
+    return value
+      .map((item) => (typeof item === "string" ? item.trim() : ""))
+      .filter(Boolean);
+  }
+
+  throw new Error(`Post "${slug}" has an invalid "${field}" field.`);
+}
+
+function normalizeFaqField(value: unknown, slug: string) {
+  if (value === undefined) {
+    return undefined;
+  }
+
+  if (!Array.isArray(value)) {
+    throw new Error(`Post "${slug}" has an invalid "faq" field.`);
+  }
+
+  return value
+    .map((item) => {
+      if (
+        typeof item !== "object" ||
+        item === null ||
+        !("question" in item) ||
+        !("answer" in item) ||
+        typeof item.question !== "string" ||
+        typeof item.answer !== "string"
+      ) {
+        throw new Error(`Post "${slug}" has an invalid "faq" item.`);
+      }
+
+      return {
+        question: item.question.trim(),
+        answer: item.answer.trim(),
+      };
+    })
+    .filter((item) => item.question.length > 0 && item.answer.length > 0);
+}
+
+function normalizeTagsField(value: unknown) {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return value.filter((tag): tag is string => typeof tag === "string" && tag.length > 0);
+}
+
 function normalizeFrontmatter(frontmatter: RawFrontmatter, slug: string): PostFrontmatter {
   const publishedAt = normalizeDateField(frontmatter.publishedAt, "publishedAt", slug);
 
@@ -61,9 +129,14 @@ function normalizeFrontmatter(frontmatter: RawFrontmatter, slug: string): PostFr
     publishedAt,
     category: readRequiredStringField(frontmatter, "category", slug),
     updatedAt: normalizeDateField(frontmatter.updatedAt, "updatedAt", slug),
-    tags: Array.isArray(frontmatter.tags)
-      ? frontmatter.tags.filter((tag): tag is string => typeof tag === "string" && tag.length > 0)
-      : [],
+    tags: normalizeTagsField(frontmatter.tags),
+    summary: normalizeStringArrayField(frontmatter.summary, "summary", slug),
+    faq: normalizeFaqField(frontmatter.faq, slug),
+    relatedQuestions: normalizeStringArrayField(
+      frontmatter.relatedQuestions,
+      "relatedQuestions",
+      slug,
+    ),
     featured: frontmatter.featured === true,
     draft: frontmatter.draft === true,
   };
@@ -73,6 +146,7 @@ export function parsePostFile(filename: string, source: string): PostDetail {
   const slug = getSlugFromFilename(filename);
   const { data, content } = matter(source);
   const frontmatter = normalizeFrontmatter(data as RawFrontmatter, slug);
+  const wordCount = calculateWordCount(content);
 
   return {
     slug,
@@ -82,9 +156,13 @@ export function parsePostFile(filename: string, source: string): PostDetail {
     updatedAt: frontmatter.updatedAt,
     category: frontmatter.category,
     tags: frontmatter.tags,
+    summary: frontmatter.summary,
+    faq: frontmatter.faq,
+    relatedQuestions: frontmatter.relatedQuestions,
     featured: frontmatter.featured ?? false,
     draft: frontmatter.draft ?? false,
     content,
-    readingTimeText: calculateReadingTime(content),
+    readingTimeText: calculateReadingTime(wordCount),
+    wordCount,
   };
 }

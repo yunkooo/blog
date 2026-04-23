@@ -48,9 +48,48 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+        name: siteConfig.name,
+        url: siteConfig.url,
+        description: siteConfig.description,
+        inLanguage: siteConfig.language,
+        publisher: {
+          "@id": `${siteConfig.url}/#organization`,
+        },
+      },
+      {
+        "@type": "Person",
+        "@id": `${siteConfig.url}/#person`,
+        name: siteConfig.authorName,
+        url: siteConfig.url,
+      },
+      {
+        "@type": "Organization",
+        "@id": `${siteConfig.url}/#organization`,
+        name: siteConfig.name,
+        url: siteConfig.url,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteConfig.url}${siteConfig.ogImage}`,
+        },
+      },
+    ],
+  };
+
   return (
     <html lang="ko" className="h-full antialiased" suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <ThemeProvider>{children}</ThemeProvider>
         <Analytics />
         <SpeedInsights />

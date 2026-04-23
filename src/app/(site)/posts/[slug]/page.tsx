@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { SummaryBox } from "@/components/mdx";
 import { getPostBySlug, getPostSlugs } from "@/features/posts/data";
 import { renderPostContent } from "@/features/posts/components/post-content";
 import { formatKoreanDate } from "@/features/posts/utils/format-korean-date";
@@ -59,20 +60,28 @@ export default async function PostDetailPage({ params }: PostPageProps) {
   const post = await getPostBySlug(slug);
   const content = await renderPostContent(post.content);
   const postUrl = `${siteConfig.url}/posts/${post.slug}`;
-  const jsonLd = {
+  const blogPostingJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
+    "@id": `${postUrl}#blogposting`,
     headline: post.title,
     description: post.description,
+    abstract: post.summary?.join(" "),
+    url: postUrl,
+    inLanguage: siteConfig.language,
+    keywords: post.tags,
+    wordCount: post.wordCount,
+    articleSection: post.category,
     datePublished: post.publishedAt,
     dateModified: post.updatedAt ?? post.publishedAt,
     author: {
       "@type": "Person",
-      name: siteConfig.name,
-      url: siteConfig.url,
+      "@id": `${siteConfig.url}/#person`,
+      name: siteConfig.authorName,
     },
     publisher: {
       "@type": "Organization",
+      "@id": `${siteConfig.url}/#organization`,
       name: siteConfig.name,
       url: siteConfig.url,
       logo: {
@@ -84,7 +93,30 @@ export default async function PostDetailPage({ params }: PostPageProps) {
       "@type": "WebPage",
       "@id": postUrl,
     },
+    isPartOf: {
+      "@type": "WebSite",
+      "@id": `${siteConfig.url}/#website`,
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
   };
+  const faqJsonLd =
+    post.faq && post.faq.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "@id": `${postUrl}#faq`,
+          mainEntity: post.faq.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        }
+      : null;
+  const jsonLd = faqJsonLd ? [blogPostingJsonLd, faqJsonLd] : blogPostingJsonLd;
 
   return (
     <main className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10">
@@ -134,6 +166,10 @@ export default async function PostDetailPage({ params }: PostPageProps) {
             </div>
           ) : null}
         </header>
+
+        {post.summary && post.summary.length > 0 ? (
+          <SummaryBox title="핵심 요약" items={post.summary} />
+        ) : null}
 
         <div className="post-content mt-7 w-full sm:mt-8">{content}</div>
       </article>

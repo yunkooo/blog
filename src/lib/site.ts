@@ -7,4 +7,6 @@ export const siteConfig = {
   url: siteUrl,
   ogImage: "/blog-logo.svg",
   rssUrl: `${siteUrl}/rss.xml`,
+  language: "ko-KR",
+  authorName: "이윤구",
 } as const;

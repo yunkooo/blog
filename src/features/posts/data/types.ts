@@ -5,6 +5,9 @@ export type PostFrontmatter = {
   updatedAt?: string;
   category: string;
   tags: string[];
+  summary?: string[];
+  faq?: PostFaqItem[];
+  relatedQuestions?: string[];
   featured?: boolean;
   draft?: boolean;
 };
@@ -12,6 +15,7 @@ export type PostFrontmatter = {
 export type PostSummary = PostFrontmatter & {
   slug: string;
   readingTimeText: string;
+  wordCount: number;
 };
 
 export type PostDetail = PostSummary & {
@@ -19,3 +23,8 @@ export type PostDetail = PostSummary & {
 };
 
 export type RawFrontmatter = Partial<PostFrontmatter>;
+
+export type PostFaqItem = {
+  question: string;
+  answer: string;
+};
