@@ -152,6 +152,19 @@ const columnsClasses: Record<"1" | "2" | "3", string> = {
   "3": "sm:grid-cols-2 lg:grid-cols-3",
 };
 
+const codeTokenClassNames = {
+  keyword: "text-violet-700 dark:text-violet-300",
+  string: "text-emerald-700 dark:text-emerald-300",
+  number: "text-amber-700 dark:text-amber-300",
+  function: "text-sky-700 dark:text-sky-300",
+  tag: "text-rose-700 dark:text-rose-300",
+  attr: "text-yellow-700 dark:text-yellow-300",
+  comment: "text-muted-foreground",
+  punctuation: "text-foreground/65",
+  command: "text-sky-700 dark:text-sky-300",
+  option: "text-amber-700 dark:text-amber-300",
+};
+
 export function normalizeMdxTone(tone: MdxToneInput = "neutral"): MdxTone {
   return tone === "note" ? "neutral" : tone;
 }
@@ -253,6 +266,8 @@ export function MdxCodeFrame({
   const isTerminal = variant === "terminal";
   const isTree = variant === "tree";
   const lines = normalizeCodeLines(code);
+  const shouldHighlight = !isTree;
+  const normalizedLanguage = normalizeCodeLanguage(meta, isTerminal);
 
   return (
     <figure
@@ -300,7 +315,7 @@ export function MdxCodeFrame({
           {lines.map((line, index) => (
             <span key={`${index}-${line}`} className="block">
               {isTerminal ? <span className="select-none text-muted-foreground">$ </span> : null}
-              {line}
+              {shouldHighlight ? highlightCodeLine(line, normalizedLanguage) : line}
             </span>
           ))}
         </code>
@@ -404,6 +419,150 @@ function normalizeColumns(columns: MdxColumns): "1" | "2" | "3" {
   }
 
   return "2";
+}
+
+function normalizeCodeLanguage(language: string | undefined, isTerminal: boolean) {
+  if (isTerminal) {
+    return "shell";
+  }
+
+  const normalizedLanguage = language?.toLowerCase().trim();
+
+  if (!normalizedLanguage) {
+    return "text";
+  }
+
+  if (["tsx", "jsx", "ts", "js", "typescript", "javascript"].includes(normalizedLanguage)) {
+    return "tsx";
+  }
+
+  if (["json", "jsonc"].includes(normalizedLanguage)) {
+    return "json";
+  }
+
+  if (["sh", "shell", "bash", "zsh", "terminal"].includes(normalizedLanguage)) {
+    return "shell";
+  }
+
+  return normalizedLanguage;
+}
+
+function highlightCodeLine(line: string, language: string) {
+  if (!line) {
+    return "\u00a0";
+  }
+
+  if (language === "shell") {
+    return highlightByPattern(line, /(--?[\w-]+)|([^\s]+)/g, (_token, captures, index) => {
+      const [option] = captures;
+
+      if (option) {
+        return "option";
+      }
+
+      return index === 0 || line.slice(0, index).trim().endsWith("&&") ? "command" : undefined;
+    });
+  }
+
+  if (language === "json") {
+    return highlightByPattern(
+      line,
+      /("(?:\\.|[^"\\])*"(?=\s*:))|("(?:\\.|[^"\\])*")|(\btrue\b|\bfalse\b|\bnull\b)|(-?\b\d+(?:\.\d+)?\b)|([{}[\],:])/g,
+      (_token, captures) => {
+        const [key, string, literal, number, punctuation] = captures;
+
+        if (key) {
+          return "attr";
+        }
+        if (string) {
+          return "string";
+        }
+        if (literal || number) {
+          return "number";
+        }
+        if (punctuation) {
+          return "punctuation";
+        }
+        return undefined;
+      },
+    );
+  }
+
+  return highlightByPattern(
+    line,
+    /(\/\/.*$|\/\*.*?\*\/)|("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|`(?:\\.|[^`\\])*`)|(<\/?[A-Za-z][\w.:-]*|\/?>)|(\b(?:import|export|default|from|function|return|const|let|var|type|interface|extends|async|await|if|else|new|null|undefined|true|false)\b)|(\b[A-Za-z_$][\w$]*(?=\s*\())|(\b\d+(?:\.\d+)?\b)|(\b(?:className|type|onClick|href|src|alt|title|code|language|size)\b)|([{}[\]().,;:=])/g,
+    (_token, captures) => {
+      const [comment, string, tag, keyword, fn, number, attr, punctuation] = captures;
+
+      if (comment) {
+        return "comment";
+      }
+      if (string) {
+        return "string";
+      }
+      if (tag) {
+        return "tag";
+      }
+      if (keyword) {
+        return "keyword";
+      }
+      if (fn) {
+        return "function";
+      }
+      if (number) {
+        return "number";
+      }
+      if (attr) {
+        return "attr";
+      }
+      if (punctuation) {
+        return "punctuation";
+      }
+      return undefined;
+    },
+  );
+}
+
+function highlightByPattern(
+  line: string,
+  pattern: RegExp,
+  resolveTokenType: (
+    token: string,
+    captures: Array<string | undefined>,
+    index: number,
+  ) => keyof typeof codeTokenClassNames | undefined,
+) {
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+
+  for (const match of line.matchAll(pattern)) {
+    const token = match[0];
+    const index = match.index ?? 0;
+
+    if (index > lastIndex) {
+      nodes.push(line.slice(lastIndex, index));
+    }
+
+    const tokenType = resolveTokenType(token, match.slice(1), index);
+
+    nodes.push(
+      tokenType ? (
+        <span key={`${index}-${token}`} className={codeTokenClassNames[tokenType]}>
+          {token}
+        </span>
+      ) : (
+        token
+      ),
+    );
+
+    lastIndex = index + token.length;
+  }
+
+  if (lastIndex < line.length) {
+    nodes.push(line.slice(lastIndex));
+  }
+
+  return nodes.length > 0 ? nodes : line;
 }
 
 export function joinClassNames(...classNames: Array<string | undefined | false>) {
