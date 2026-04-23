@@ -27,6 +27,8 @@ export function ImageFrame({
         getMdxToneClassName(tone, variant),
       )}
     >
+      {/* MDX posts can reference remote or local images without known dimensions. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={src} alt={alt} className="h-auto w-full object-cover" loading="lazy" />
       {caption ? (
         <figcaption className="border-t border-border/70 bg-background/45 px-4 py-3 text-sm leading-6 text-muted-foreground">

@@ -1,6 +1,5 @@
 import {
   getMdxMarkerClassName,
-  getMdxToneClassName,
   joinClassNames,
   type MdxSize,
   type MdxToneInput,
@@ -40,8 +39,8 @@ export function Timeline({
             {index < steps.length - 1 ? (
               <span
                 className={joinClassNames(
-                  "h-full min-h-6 w-px",
-                  tone === "neutral" || tone === "note" ? "bg-border" : getMdxToneClassName(tone, "soft"),
+                  "h-full min-h-6 w-px opacity-70",
+                  tone === "neutral" || tone === "note" ? "bg-border" : getMdxMarkerClassName(tone, true),
                 )}
               />
             ) : null}

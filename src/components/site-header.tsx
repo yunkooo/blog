@@ -39,8 +39,7 @@ export function SiteHeader() {
     "rounded-md px-1 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40";
   const inactiveLinkClass = `${linkBaseClass} text-muted-foreground hover:text-foreground`;
   const activeLinkClass = `${linkBaseClass} text-foreground`;
-  const currentSection =
-    pathname === "/about" ? "about" : pathname === "/design" ? "design" : "posts";
+  const currentSection = pathname === "/about" ? "about" : "posts";
 
   return (
     <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border/80 py-5 sm:py-6">
@@ -77,12 +76,6 @@ export function SiteHeader() {
             className={currentSection === "about" ? activeLinkClass : inactiveLinkClass}
           >
             about
-          </Link>
-          <Link
-            href="/design"
-            className={currentSection === "design" ? activeLinkClass : inactiveLinkClass}
-          >
-            design
           </Link>
         </nav>
 

@@ -25,6 +25,12 @@ export function SiteFooter() {
             >
               RSS
             </a>
+            <a
+              href="/design"
+              className="rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
+            >
+              Design
+            </a>
           </div>
         </div>
 

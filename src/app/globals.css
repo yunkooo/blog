@@ -296,7 +296,6 @@
   .post-content pre {
     overflow-x: auto;
     border: 1px solid color-mix(in srgb, var(--border) 82%, var(--foreground) 18%);
-    border-left: 4px solid color-mix(in srgb, var(--foreground) 24%, var(--border) 76%);
     background: linear-gradient(
       135deg,
       color-mix(in srgb, var(--muted) 58%, transparent),
