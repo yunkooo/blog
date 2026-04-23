@@ -141,9 +141,9 @@ const listSizeClasses: Record<MdxSize, string> = {
 };
 
 const codeSizeClasses: Record<MdxSize, string> = {
-  sm: "px-4 py-3 text-[0.9rem] leading-7",
-  md: "px-4 py-4 text-[0.95rem] leading-7",
-  lg: "px-5 py-5 text-[1rem] leading-8",
+  sm: "!px-4 !py-3 !text-[0.9rem] !leading-7",
+  md: "!px-4 !py-4 !text-[0.95rem] !leading-7",
+  lg: "!px-5 !py-5 !text-[1rem] !leading-8",
 };
 
 const columnsClasses: Record<"1" | "2" | "3", string> = {
@@ -289,10 +289,10 @@ export function MdxCodeFrame({
       </figcaption>
       <pre
         className={joinClassNames(
-          "overflow-x-auto",
+          "!m-0 overflow-x-auto !rounded-none !border-0 !bg-transparent !shadow-none",
           codeSizeClasses[size],
           isTerminal ? "" : "text-foreground",
-          variant === "default" ? "bg-muted/20" : "",
+          variant === "default" ? "!bg-muted/20" : "",
           isTree ? "text-foreground/85" : "",
         )}
       >
