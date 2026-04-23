@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="flex-1 py-8 sm:py-10">
+    <main className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10">
       <div>
         <section className="grid gap-8 px-0 py-1 sm:py-3 lg:grid-cols-[minmax(0,1fr)_240px] lg:items-start">
           <div>

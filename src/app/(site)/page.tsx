@@ -35,7 +35,7 @@ export default async function HomePage() {
   const posts = await getAllPosts();
 
   return (
-    <main className="flex-1 py-8 sm:py-10">
+    <main className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10">
       <section className="px-0 py-1 sm:py-3">
         <div className="divide-y divide-border">
           {posts.map((post) => (

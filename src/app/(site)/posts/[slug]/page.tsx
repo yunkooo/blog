@@ -87,7 +87,7 @@ export default async function PostDetailPage({ params }: PostPageProps) {
   };
 
   return (
-    <main className="flex-1 py-8 sm:py-10">
+    <main className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

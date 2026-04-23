@@ -39,10 +39,11 @@ export function SiteHeader() {
     "rounded-md px-1 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40";
   const inactiveLinkClass = `${linkBaseClass} text-muted-foreground hover:text-foreground`;
   const activeLinkClass = `${linkBaseClass} text-foreground`;
-  const currentSection = pathname === "/about" ? "about" : "posts";
+  const currentSection =
+    pathname === "/about" ? "about" : pathname === "/design" ? "design" : "posts";
 
   return (
-    <header className="flex items-center justify-between border-b border-border/80 py-5 sm:py-6">
+    <header className="flex flex-wrap items-center justify-between gap-4 border-b border-border/80 py-5 sm:py-6">
       <Link
         href="/"
         className="flex items-center gap-3 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
@@ -61,11 +62,13 @@ export function SiteHeader() {
             maskSize: "contain",
           }}
         />
-        <h1 className="text-lg font-medium tracking-[-0.02em] sm:text-xl">yunkoo.dev</h1>
+        <h1 className="hidden text-lg font-medium tracking-[-0.02em] sm:block sm:text-xl">
+          yunkoo.dev
+        </h1>
       </Link>
 
       <div className="flex items-center gap-4">
-        <nav className="flex gap-5 sm:gap-8">
+        <nav className="flex gap-3 sm:gap-8">
           <Link href="/" className={currentSection === "posts" ? activeLinkClass : inactiveLinkClass}>
             posts
           </Link>
@@ -74,6 +77,12 @@ export function SiteHeader() {
             className={currentSection === "about" ? activeLinkClass : inactiveLinkClass}
           >
             about
+          </Link>
+          <Link
+            href="/design"
+            className={currentSection === "design" ? activeLinkClass : inactiveLinkClass}
+          >
+            design
           </Link>
         </nav>
 

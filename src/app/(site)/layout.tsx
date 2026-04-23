@@ -8,7 +8,7 @@ export default function SiteLayout({
 }>) {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <div className="mx-auto flex min-h-screen max-w-4xl flex-col px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 sm:px-6 lg:px-8">
         <SiteHeader />
         {children}
         <SiteFooter />
