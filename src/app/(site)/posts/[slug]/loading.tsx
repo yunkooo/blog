@@ -1,6 +1,6 @@
 export default function PostDetailLoading() {
   return (
-    <main className="flex-1 py-8 sm:py-10">
+    <main className="mx-auto w-full max-w-4xl flex-1 py-8 sm:py-10">
       <article className="px-0 py-1 sm:py-2" aria-label="글을 불러오는 중">
         <div className="h-5 w-24 animate-pulse rounded bg-muted" />
 
