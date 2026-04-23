@@ -36,7 +36,7 @@ export function Callout({
       tone={tone}
       size={size}
       variant={variant}
-      className="!rounded-xl !border-l-4 !bg-background !px-4 !py-3"
+      className="!rounded-xl !border-l-4 !bg-surface !px-4 !py-3"
     >
       <MdxBlockTitle tone={tone} className="mb-1.5 tracking-[0.18em]">
         {title ?? toneLabels[tone]}

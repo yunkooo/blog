@@ -1,12 +1,11 @@
 import {
-  MdxList,
+  getMdxMarkerOutlineClassName,
   type MdxSize,
   type MdxToneInput,
   type MdxVariant,
-  getMdxToneClassName,
   joinClassNames,
 } from "@/components/mdx/mdx-primitives";
-import type { DelimitedItems } from "@/components/mdx/mdx-utils";
+import { normalizeDelimitedItems, type DelimitedItems } from "@/components/mdx/mdx-utils";
 
 type StepListProps = {
   items?: DelimitedItems;
@@ -19,29 +18,30 @@ export function StepList({
   items,
   tone = "neutral",
   size = "md",
-  variant = "plain",
 }: StepListProps) {
+  const steps = normalizeDelimitedItems(items);
+  const contentClassName = size === "sm" ? "text-[0.96rem] leading-7" : "text-[1rem] leading-7";
+
   return (
-    <MdxList
-      items={items}
-      ordered
-      className="not-prose my-6 space-y-3"
-      size={size}
-      itemClassName={joinClassNames(
-        "rounded-2xl border px-4 py-3",
-        getMdxToneClassName(tone, variant),
-      )}
-      marker={(_, index) => (
-        <span
-          className={joinClassNames(
-            "flex h-7 w-7 min-w-7 shrink-0 aspect-square items-center justify-center rounded-full border text-sm font-medium",
-            "border-foreground bg-transparent text-foreground",
-            "dark:border-foreground/35 dark:bg-muted/70 dark:text-foreground",
-          )}
-        >
-          {index + 1}
-        </span>
-      )}
-    />
+    <ol className="not-prose my-7 grid list-none gap-0 p-0">
+      {steps.map((step, index) => (
+        <li key={`${index}-${step}`} className="grid grid-cols-[2rem_minmax(0,1fr)] gap-3">
+          <div className="flex flex-col items-center">
+            <span
+              className={joinClassNames(
+                "flex h-7 w-7 min-w-7 shrink-0 aspect-square items-center justify-center rounded-full border bg-transparent text-sm font-medium",
+                getMdxMarkerOutlineClassName(tone),
+              )}
+            >
+              {index + 1}
+            </span>
+            {index < steps.length - 1 ? <span className="h-full min-h-6 w-px bg-border" /> : null}
+          </div>
+          <p className={joinClassNames("pb-5 pt-0.5 text-foreground/82", contentClassName)}>
+            {step}
+          </p>
+        </li>
+      ))}
+    </ol>
   );
 }

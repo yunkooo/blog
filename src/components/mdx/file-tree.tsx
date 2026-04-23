@@ -1,4 +1,4 @@
-import { MdxCodeFrame, type MdxSize } from "@/components/mdx/mdx-primitives";
+import { joinClassNames, type MdxSize } from "@/components/mdx/mdx-primitives";
 import { normalizeCodeLines, type DelimitedItems } from "@/components/mdx/mdx-utils";
 
 type FileTreeProps = {
@@ -19,10 +19,80 @@ type ParsedFileTreeItem = {
   comment?: string;
 };
 
-export function FileTree({ title = "File tree", code, items, size = "md" }: FileTreeProps) {
-  const treeCode = items ? buildFileTreeCode(items) : code ?? "";
+const fileTreeSizeClasses: Record<MdxSize, string> = {
+  sm: "px-4 py-3 text-[0.9rem] leading-7",
+  md: "px-4 py-4 text-[0.95rem] leading-7",
+  lg: "px-5 py-5 text-[1rem] leading-8",
+};
 
-  return <MdxCodeFrame title={title} code={treeCode} variant="tree" size={size} />;
+export function FileTree({ title = "File tree", code, items, size = "md" }: FileTreeProps) {
+  const treeCode = items ? buildFileTreeCode(items) : buildFileTreeCodeFromIndentedText(code ?? "");
+  const lines = normalizeCodeLines(treeCode);
+
+  return (
+    <figure className="not-prose my-6 overflow-hidden rounded-[1.35rem] border border-border/80 bg-surface-raised text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+      <figcaption className="border-b border-border/70 bg-surface-muted px-4 py-2.5 text-sm font-medium text-foreground">
+        {title}
+      </figcaption>
+      <pre
+        className={joinClassNames(
+          "m-0 overflow-x-auto whitespace-pre bg-transparent font-mono text-foreground/88",
+          fileTreeSizeClasses[size],
+        )}
+      >
+        <code>
+          {lines.map((line, index) => (
+            <span key={`${index}-${line}`} className="block">
+              <span className={line.trim().endsWith("/") ? "text-foreground" : "text-foreground/82"}>
+                {line || "\u00a0"}
+              </span>
+            </span>
+          ))}
+        </code>
+      </pre>
+    </figure>
+  );
+}
+
+function buildFileTreeCodeFromIndentedText(code: string) {
+  const lines = normalizeCodeLines(code);
+
+  if (lines.some((line) => /[├└│]/.test(line))) {
+    return lines.join("\n");
+  }
+
+  const roots: FileTreeNode[] = [];
+  const stack: FileTreeNode[] = [];
+
+  for (const line of lines) {
+    if (!line.trim()) {
+      stack.length = 0;
+      continue;
+    }
+
+    const indent = line.match(/^\s*/)?.[0].replace(/\t/g, "  ").length ?? 0;
+    const depth = Math.floor(indent / 2);
+    const parsedItem = parseFileTreeItem(line.trim());
+    const label = parsedItem.path || line.trim();
+    const node: FileTreeNode = {
+      label,
+      comment: parsedItem.comment,
+      children: [],
+    };
+
+    if (depth === 0 || !stack[depth - 1]) {
+      roots.push(node);
+    } else {
+      stack[depth - 1].children.push(node);
+    }
+
+    stack[depth] = node;
+    stack.length = depth + 1;
+  }
+
+  return roots
+    .flatMap((node, index) => renderFileTreeNode(node, "", index === roots.length - 1))
+    .join("\n");
 }
 
 function buildFileTreeCode(items: DelimitedItems) {

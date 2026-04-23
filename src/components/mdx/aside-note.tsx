@@ -35,7 +35,9 @@ export function AsideNote({
         {icon ? <span aria-hidden="true">{icon}</span> : null}
         <span>{title}</span>
       </MdxBlockTitle>
-      <div className="text-[0.94rem] leading-7 text-muted-foreground">{children}</div>
+      <div className="text-[0.94rem] leading-7 text-foreground/76 dark:text-foreground/80">
+        {children}
+      </div>
     </MdxCard>
   );
 }

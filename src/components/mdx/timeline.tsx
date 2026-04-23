@@ -1,9 +1,9 @@
 import {
-  getMdxMarkerClassName,
+  getMdxMarkerOutlineClassName,
+  getMdxToneTextClassName,
   joinClassNames,
   type MdxSize,
   type MdxToneInput,
-  type MdxVariant,
 } from "@/components/mdx/mdx-primitives";
 import { normalizeDelimitedItems, type DelimitedItems } from "@/components/mdx/mdx-utils";
 
@@ -11,15 +11,17 @@ type TimelineProps = {
   items?: DelimitedItems;
   tone?: MdxToneInput;
   size?: MdxSize;
-  variant?: MdxVariant;
+  variant?: "plain" | "soft" | "outline" | "dashed" | "solid";
 };
 
 export function Timeline({
   items,
   tone = "neutral",
   size = "md",
-  variant = "plain",
+  variant,
 }: TimelineProps) {
+  void variant;
+
   const steps = normalizeDelimitedItems(items);
   const contentClassName = size === "sm" ? "text-[0.96rem] leading-7" : "text-[1rem] leading-7";
 
@@ -30,8 +32,8 @@ export function Timeline({
           <div className="flex flex-col items-center">
             <span
               className={joinClassNames(
-                "flex h-7 w-7 min-w-7 shrink-0 aspect-square items-center justify-center rounded-full border text-sm font-medium",
-                getMdxMarkerClassName(tone, variant !== "solid"),
+                "flex h-7 w-7 min-w-7 shrink-0 aspect-square items-center justify-center rounded-full border bg-transparent text-sm font-medium",
+                getMdxMarkerOutlineClassName(tone),
               )}
             >
               {index + 1}
@@ -39,8 +41,10 @@ export function Timeline({
             {index < steps.length - 1 ? (
               <span
                 className={joinClassNames(
-                  "h-full min-h-6 w-px opacity-70",
-                  tone === "neutral" || tone === "note" ? "bg-border" : getMdxMarkerClassName(tone, true),
+                  "h-full min-h-6 w-px opacity-55",
+                  tone === "neutral" || tone === "note"
+                    ? "bg-border"
+                    : getMdxToneTextClassName(tone),
                 )}
               />
             ) : null}

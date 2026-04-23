@@ -28,7 +28,7 @@ export function DefinitionBox({
   void variant;
 
   return (
-    <aside className="not-prose my-7 border-l-2 border-border pl-5">
+    <aside className="not-prose my-7 rounded-r-xl border-l-2 border-border bg-surface/60 py-3 pl-5 pr-4">
       <MdxBlockTitle tone={tone} className="text-xs tracking-[0.18em]">
         {title}
       </MdxBlockTitle>
@@ -41,7 +41,9 @@ export function DefinitionBox({
         >
           {term}
         </dt>
-        <dd className="mt-2 text-[1rem] leading-8 text-muted-foreground">{description}</dd>
+        <dd className="mt-2 text-[1rem] leading-8 text-foreground/76 dark:text-foreground/80">
+          {description}
+        </dd>
       </dl>
     </aside>
   );

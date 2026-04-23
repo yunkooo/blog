@@ -21,6 +21,8 @@ export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarPro
   const activeItemRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
+    document.documentElement.classList.remove("design-instant-scroll");
+
     const scrollContainer = scrollContainerRef.current;
     const activeItem = activeItemRef.current;
 
@@ -49,14 +51,14 @@ export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarPro
 
   return (
     <aside className="lg:sticky lg:top-8 lg:self-start">
-      <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-background">
+      <div className="relative overflow-hidden rounded-2xl border border-border/80 bg-surface">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-8 bg-gradient-to-b from-background to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 h-8 bg-gradient-to-b from-surface to-transparent"
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-t from-background to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-t from-surface to-transparent"
         />
         <div
           ref={scrollContainerRef}
@@ -137,10 +139,18 @@ function TocLink({
     <Link
       ref={isActive ? activeItemRef : undefined}
       href={href}
+      onClick={() => {
+        if (!isActive) {
+          document.documentElement.classList.add("design-instant-scroll");
+          window.setTimeout(() => {
+            document.documentElement.classList.remove("design-instant-scroll");
+          }, 1000);
+        }
+      }}
       className={`rounded-xl px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 ${
         isActive
-          ? "bg-muted/65 text-foreground"
-          : "text-muted-foreground hover:bg-muted/45 hover:text-foreground"
+          ? "bg-accent text-accent-foreground"
+          : "text-muted-foreground hover:bg-surface-muted hover:text-foreground"
       }`}
     >
       {children}

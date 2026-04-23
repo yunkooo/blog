@@ -29,18 +29,20 @@ export function InsightCard({
   void variant;
 
   return (
-    <aside className="not-prose my-7 flex gap-3">
-      <span
-        aria-hidden="true"
-        className={joinClassNames("mt-1.5 shrink-0 text-sm", getMdxToneTextClassName(tone))}
+    <aside className="not-prose my-7">
+      <MdxBlockTitle
+        tone={tone}
+        className="mb-2 flex items-center gap-2 text-xs tracking-[0.18em]"
       >
-        {icon}
-      </span>
-      <div>
-        <MdxBlockTitle tone={tone} className="mb-2 text-xs tracking-[0.18em]">
-          {title}
-        </MdxBlockTitle>
-        <div className="text-[1.02rem] leading-8 text-foreground/80">{children}</div>
+        {icon ? (
+          <span aria-hidden="true" className={joinClassNames("text-sm", getMdxToneTextClassName(tone))}>
+            {icon}
+          </span>
+        ) : null}
+        <span>{title}</span>
+      </MdxBlockTitle>
+      <div className="text-[1.02rem] leading-8 text-foreground/80">
+        {children}
       </div>
     </aside>
   );

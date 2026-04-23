@@ -75,10 +75,10 @@ const toneClasses: Record<
   }
 > = {
   neutral: {
-    soft: "border-border/80 bg-muted/30 text-foreground",
-    plain: "border-border/80 bg-background text-foreground",
-    outline: "border-border/80 bg-background text-foreground",
-    dashed: "border-dashed border-border bg-muted/25 text-foreground",
+    soft: "border-border/80 bg-muted/30 text-foreground dark:!bg-surface-muted",
+    plain: "border-border/80 bg-background text-foreground dark:!bg-surface",
+    outline: "border-border/80 bg-background text-foreground dark:!bg-surface",
+    dashed: "border-dashed border-border bg-muted/25 text-foreground dark:!bg-surface-muted",
     solid: "border-foreground bg-foreground text-background",
     marker: "bg-foreground text-background border-foreground",
     subtleMarker: "bg-muted/55 text-foreground border-foreground/20",
@@ -86,52 +86,52 @@ const toneClasses: Record<
     text: "text-foreground",
   },
   info: {
-    soft: "border-sky-500/20 bg-sky-500/10 text-foreground dark:border-sky-300/25 dark:bg-sky-300/10",
-    plain: "border-sky-500/25 bg-background text-foreground dark:border-sky-300/25",
-    outline: "border-sky-500/35 bg-background text-foreground dark:border-sky-300/35",
-    dashed: "border-dashed border-sky-500/35 bg-sky-500/10 text-foreground dark:border-sky-300/35 dark:bg-sky-300/10",
+    soft: "border-[color:var(--tone-info-border)] bg-[var(--tone-info-bg)] text-foreground",
+    plain: "border-[color:var(--tone-info-border)] bg-surface text-foreground",
+    outline: "border-[color:var(--tone-info-border)] bg-surface text-foreground",
+    dashed: "border-dashed border-[color:var(--tone-info-border)] bg-[var(--tone-info-bg)] text-foreground",
     solid: "border-sky-700 bg-sky-700 text-white dark:border-sky-300 dark:bg-sky-300 dark:text-sky-950",
     marker: "bg-sky-600 text-white border-sky-600 dark:bg-sky-300 dark:text-sky-950 dark:border-sky-300",
-    subtleMarker: "bg-sky-500/15 text-sky-900 border-sky-500/25 dark:text-sky-100 dark:border-sky-300/30",
-    outlineMarker: "border-sky-600/45 text-sky-700 dark:border-sky-300/45 dark:text-sky-200",
-    text: "text-sky-900 dark:text-sky-100",
+    subtleMarker: "border-[color:var(--tone-info-border)] bg-[var(--tone-info-bg)] text-[var(--tone-info-text)]",
+    outlineMarker: "border-[color:var(--tone-info-border)] text-[var(--tone-info-text)]",
+    text: "text-[var(--tone-info-text)]",
   },
   success: {
-    soft: "border-emerald-500/20 bg-emerald-500/10 text-foreground dark:border-emerald-300/25 dark:bg-emerald-300/10",
-    plain: "border-emerald-500/25 bg-background text-foreground dark:border-emerald-300/25",
-    outline: "border-emerald-500/35 bg-background text-foreground dark:border-emerald-300/35",
-    dashed: "border-dashed border-emerald-500/35 bg-emerald-500/10 text-foreground dark:border-emerald-300/35 dark:bg-emerald-300/10",
+    soft: "border-[color:var(--tone-success-border)] bg-[var(--tone-success-bg)] text-foreground",
+    plain: "border-[color:var(--tone-success-border)] bg-surface text-foreground",
+    outline: "border-[color:var(--tone-success-border)] bg-surface text-foreground",
+    dashed: "border-dashed border-[color:var(--tone-success-border)] bg-[var(--tone-success-bg)] text-foreground",
     solid: "border-emerald-700 bg-emerald-700 text-white dark:border-emerald-300 dark:bg-emerald-300 dark:text-emerald-950",
     marker:
       "bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-300 dark:text-emerald-950 dark:border-emerald-300",
     subtleMarker:
-      "bg-emerald-500/15 text-emerald-900 border-emerald-500/25 dark:text-emerald-100 dark:border-emerald-300/30",
+      "border-[color:var(--tone-success-border)] bg-[var(--tone-success-bg)] text-[var(--tone-success-text)]",
     outlineMarker:
-      "border-emerald-600/45 text-emerald-700 dark:border-emerald-300/45 dark:text-emerald-200",
-    text: "text-emerald-900 dark:text-emerald-100",
+      "border-[color:var(--tone-success-border)] text-[var(--tone-success-text)]",
+    text: "text-[var(--tone-success-text)]",
   },
   warning: {
-    soft: "border-amber-500/25 bg-amber-500/10 text-foreground dark:border-amber-300/25 dark:bg-amber-300/10",
-    plain: "border-amber-500/30 bg-background text-foreground dark:border-amber-300/30",
-    outline: "border-amber-500/40 bg-background text-foreground dark:border-amber-300/40",
-    dashed: "border-dashed border-amber-500/40 bg-amber-500/10 text-foreground dark:border-amber-300/40 dark:bg-amber-300/10",
+    soft: "border-[color:var(--tone-warning-border)] bg-[var(--tone-warning-bg)] text-foreground",
+    plain: "border-[color:var(--tone-warning-border)] bg-surface text-foreground",
+    outline: "border-[color:var(--tone-warning-border)] bg-surface text-foreground",
+    dashed: "border-dashed border-[color:var(--tone-warning-border)] bg-[var(--tone-warning-bg)] text-foreground",
     solid: "border-amber-600 bg-amber-500 text-amber-950 dark:border-amber-300 dark:bg-amber-300",
     marker: "bg-amber-500 text-amber-950 border-amber-500 dark:bg-amber-300 dark:border-amber-300",
     subtleMarker:
-      "bg-amber-500/15 text-amber-900 border-amber-500/30 dark:text-amber-100 dark:border-amber-300/30",
-    outlineMarker: "border-amber-600/45 text-amber-700 dark:border-amber-300/45 dark:text-amber-200",
-    text: "text-amber-900 dark:text-amber-100",
+      "border-[color:var(--tone-warning-border)] bg-[var(--tone-warning-bg)] text-[var(--tone-warning-text)]",
+    outlineMarker: "border-[color:var(--tone-warning-border)] text-[var(--tone-warning-text)]",
+    text: "text-[var(--tone-warning-text)]",
   },
   danger: {
-    soft: "border-rose-500/20 bg-rose-500/10 text-foreground dark:border-rose-300/25 dark:bg-rose-300/10",
-    plain: "border-rose-500/25 bg-background text-foreground dark:border-rose-300/25",
-    outline: "border-rose-500/35 bg-background text-foreground dark:border-rose-300/35",
-    dashed: "border-dashed border-rose-500/35 bg-rose-500/10 text-foreground dark:border-rose-300/35 dark:bg-rose-300/10",
+    soft: "border-[color:var(--tone-danger-border)] bg-[var(--tone-danger-bg)] text-foreground",
+    plain: "border-[color:var(--tone-danger-border)] bg-surface text-foreground",
+    outline: "border-[color:var(--tone-danger-border)] bg-surface text-foreground",
+    dashed: "border-dashed border-[color:var(--tone-danger-border)] bg-[var(--tone-danger-bg)] text-foreground",
     solid: "border-rose-700 bg-rose-700 text-white dark:border-rose-300 dark:bg-rose-300 dark:text-rose-950",
     marker: "bg-rose-600 text-white border-rose-600 dark:bg-rose-300 dark:text-rose-950 dark:border-rose-300",
-    subtleMarker: "bg-rose-500/15 text-rose-900 border-rose-500/25 dark:text-rose-100 dark:border-rose-300/30",
-    outlineMarker: "border-rose-600/45 text-rose-700 dark:border-rose-300/45 dark:text-rose-200",
-    text: "text-rose-900 dark:text-rose-100",
+    subtleMarker: "border-[color:var(--tone-danger-border)] bg-[var(--tone-danger-bg)] text-[var(--tone-danger-text)]",
+    outlineMarker: "border-[color:var(--tone-danger-border)] text-[var(--tone-danger-text)]",
+    text: "text-[var(--tone-danger-text)]",
   },
 };
 
@@ -160,16 +160,16 @@ const columnsClasses: Record<"1" | "2" | "3", string> = {
 };
 
 const codeTokenClassNames = {
-  keyword: "text-[#7d2cc8] dark:text-violet-300",
-  string: "text-[#116329] dark:text-emerald-300",
-  number: "text-[#8a4b0f] dark:text-amber-300",
-  function: "text-[#0550ae] dark:text-sky-300",
-  tag: "text-[#a40e26] dark:text-rose-300",
-  attr: "text-[#7a4d00] dark:text-yellow-300",
-  comment: "text-[#57606a] dark:text-muted-foreground",
-  punctuation: "text-[#4b5563] dark:text-foreground/65",
-  command: "text-[#0550ae] dark:text-sky-300",
-  option: "text-[#8a4b0f] dark:text-amber-300",
+  keyword: "text-[var(--code-keyword)]",
+  string: "text-[var(--code-string)]",
+  number: "text-[var(--code-number)]",
+  function: "text-[var(--code-function)]",
+  tag: "text-[var(--code-tag)]",
+  attr: "text-[var(--code-attr)]",
+  comment: "text-[var(--code-comment)]",
+  punctuation: "text-[var(--code-punctuation)]",
+  command: "text-[var(--code-command)]",
+  option: "text-[var(--code-option)]",
 };
 
 export function normalizeMdxTone(tone: MdxToneInput = "neutral"): MdxTone {
@@ -283,18 +283,12 @@ export function MdxCodeFrame({
   return (
     <figure
       className={joinClassNames(
-        "not-prose my-6 overflow-hidden rounded-[1.35rem] border",
-        isTerminal
-          ? "border-border/80 bg-muted/35 text-foreground"
-          : "border-border/80 bg-background",
+        "not-prose my-6 overflow-hidden rounded-[1.35rem] border border-[color:var(--code-border)] bg-[var(--code-bg)] text-[var(--code-text)]",
       )}
     >
       <figcaption
         className={joinClassNames(
-          "flex items-center justify-between border-b px-4 py-2.5 text-sm",
-          isTerminal
-            ? "border-border/70 bg-muted/35 text-muted-foreground"
-            : "border-border/70 bg-muted/30 text-muted-foreground",
+          "flex items-center justify-between border-b border-[color:var(--code-border)] bg-[var(--code-header-bg)] px-4 py-2.5 text-sm text-[var(--code-muted)]",
         )}
       >
         {isTerminal ? (
@@ -305,10 +299,10 @@ export function MdxCodeFrame({
             <span className="ml-2">{title}</span>
           </span>
         ) : (
-          <span className={isTree ? "font-medium" : "font-medium text-foreground"}>{title}</span>
+          <span className="font-medium text-[var(--code-text)]">{title}</span>
         )}
         {meta ? (
-          <span className="rounded-full bg-background px-2 py-0.5 text-xs uppercase tracking-[0.12em] text-muted-foreground">
+          <span className="rounded-full border border-[color:var(--code-border)] bg-[var(--code-bg)] px-2 py-0.5 text-xs uppercase tracking-[0.12em] text-[var(--code-muted)]">
             {meta}
           </span>
         ) : null}
@@ -317,15 +311,15 @@ export function MdxCodeFrame({
         className={joinClassNames(
           "!m-0 overflow-x-auto !rounded-none !border-0 !bg-transparent !shadow-none",
           codeSizeClasses[size],
-          isTerminal ? "" : "text-foreground",
-          variant === "default" ? "!bg-muted/20" : "",
-          isTree ? "text-foreground/85" : "",
+          "text-[var(--code-text)]",
         )}
       >
         <code>
           {lines.map((line, index) => (
             <span key={`${index}-${line}`} className="block">
-              {isTerminal ? <span className="select-none text-muted-foreground">$ </span> : null}
+              {isTerminal ? (
+                <span className="select-none text-[var(--code-muted)]">$ </span>
+              ) : null}
               {shouldHighlight ? highlightCodeLine(line, normalizedLanguage) : line}
             </span>
           ))}
@@ -365,6 +359,9 @@ export function MdxHighlight({
               ? "text-xs uppercase tracking-[0.22em] text-muted-foreground"
               : "text-sm text-muted-foreground",
             variant === "soft" ? "items-start text-lg leading-8 tracking-[-0.01em] text-foreground" : "",
+            variant === "soft" && normalizeMdxTone(tone) !== "neutral"
+              ? getMdxToneTextClassName(tone)
+              : "",
           )}
         >
           {icon ? <span aria-hidden="true">{icon}</span> : null}
@@ -376,7 +373,7 @@ export function MdxHighlight({
           title ? "mt-3" : "",
           isStrong
             ? "text-[1.2rem] font-medium leading-9 tracking-[-0.015em] text-foreground sm:text-[1.32rem] sm:leading-10"
-            : "text-[1rem] leading-8 text-muted-foreground",
+            : "text-[1rem] leading-8 text-foreground/78 dark:text-foreground/82",
         )}
       >
         {children}
@@ -458,7 +455,7 @@ function normalizeCodeLanguage(language: string | undefined, isTerminal: boolean
   return normalizedLanguage;
 }
 
-function highlightCodeLine(line: string, language: string) {
+export function highlightCodeLine(line: string, language: string) {
   if (!line) {
     return "\u00a0";
   }

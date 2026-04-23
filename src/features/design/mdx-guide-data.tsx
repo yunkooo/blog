@@ -26,6 +26,12 @@ import {
   Timeline,
   ToolGrid,
 } from "@/components/mdx";
+import {
+  getMdxToneClassName,
+  getMdxToneTextClassName,
+  highlightCodeLine,
+  joinClassNames,
+} from "@/components/mdx/mdx-primitives";
 
 export type MdxGuideDoc = {
   slug: string;
@@ -136,6 +142,7 @@ export const basicDocs: MdxGuideDoc[] = [
     preview: (
       <CodeSnippet
         code={["export function Example() {", "  return <p>Hello MDX</p>;", "}"].join("\n")}
+        language="tsx"
       />
     ),
     examples: [
@@ -162,6 +169,7 @@ export const basicDocs: MdxGuideDoc[] = [
               code={["export default function Page() {", "  return <main>Home</main>;", "}"].join(
                 "\n",
               )}
+              language="tsx"
             />
           </div>
         ),
@@ -1139,21 +1147,21 @@ export function SectionHeader({
 
 export function ExampleCard({ doc }: { doc: MdxGuideDoc }) {
   return (
-    <article className="overflow-hidden rounded-2xl border border-border/80 bg-background">
-      <div className="border-b border-border/70 px-5 py-4">
+    <article className="overflow-hidden rounded-2xl border border-border/80 bg-card">
+      <div className="border-b border-border/70 bg-surface px-5 py-4">
         <h2 className="text-2xl font-semibold tracking-tight">{doc.title}</h2>
-        <p className="mt-2 leading-7 text-muted-foreground">{doc.description}</p>
-        {doc.note ? <p className="mt-2 text-sm leading-6 text-muted-foreground/85">{doc.note}</p> : null}
+        <p className="mt-2 leading-7 text-foreground/78">{doc.description}</p>
+        {doc.note ? <p className="mt-2 text-sm leading-6 text-foreground/70">{doc.note}</p> : null}
         {toneSupportedSlugs.has(doc.slug) ? <ComponentToneHelp /> : null}
       </div>
       <div>
-        <div className="min-w-0 border-b border-border/70 bg-muted/10 p-5">
+        <div className="min-w-0 border-b border-border/70 bg-surface-raised p-5">
           <p className="mb-4 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
             Preview
           </p>
           <div className="min-w-0">{doc.preview}</div>
         </div>
-        <div className="min-w-0 bg-muted/25 p-5">
+        <div className="min-w-0 bg-surface-muted p-5">
           <div className="mb-4 flex items-center justify-between gap-3">
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
               MDX
@@ -1181,19 +1189,19 @@ export function ExampleCard({ doc }: { doc: MdxGuideDoc }) {
 
 function ExampleVariant({ example }: { example: MdxGuideExample }) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-border/75 bg-muted/10">
-      <div className="border-b border-border/70 px-4 py-3">
+    <section className="overflow-hidden rounded-2xl border border-border/75 bg-card">
+      <div className="border-b border-border/70 bg-surface px-4 py-3">
         <h3 className="font-medium tracking-tight">{example.title}</h3>
         {example.note ? (
-          <p className="mt-1 text-sm leading-6 text-muted-foreground">{example.note}</p>
+          <p className="mt-1 text-sm leading-6 text-foreground/70">{example.note}</p>
         ) : null}
       </div>
       {example.preview ? (
-        <div className="min-w-0 border-b border-border/70 bg-background p-4">
+        <div className="min-w-0 border-b border-border/70 bg-surface-raised p-4">
           {example.preview}
         </div>
       ) : null}
-      <div className="min-w-0 bg-muted/25 p-4">
+      <div className="min-w-0 bg-surface-muted p-4">
         <div className="mb-3 flex items-center justify-between gap-3">
           <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
             MDX
@@ -1208,7 +1216,7 @@ function ExampleVariant({ example }: { example: MdxGuideExample }) {
 
 function ComponentToneHelp() {
   return (
-    <div className="mt-3 rounded-2xl border border-border/70 bg-muted/20 px-4 py-3 text-sm leading-6 text-muted-foreground">
+    <div className="mt-3 rounded-2xl border border-border/70 bg-surface-raised px-4 py-3 text-sm leading-6 text-foreground/72">
       <p>
         <span className="font-medium text-foreground">tone 사용 팁:</span> 평범한 설명은
         neutral, 참고 정보는 info, 좋은 결론은 success, 주의할 점은 warning, 위험한 작업은
@@ -1273,19 +1281,40 @@ function ToneReferenceList() {
   return (
     <div className="grid gap-2">
       {toneItems.map(({ tone, label, description }) => (
-        <div key={tone} className="grid gap-2 rounded-2xl border border-border/70 bg-background p-4 sm:grid-cols-[6.5rem_minmax(0,1fr)]">
-          <span className="text-sm font-medium text-foreground">{label}</span>
-          <span className="text-sm leading-6 text-muted-foreground">{description}</span>
+        <div
+          key={tone}
+          className={joinClassNames(
+            "grid gap-2 rounded-2xl border p-4 sm:grid-cols-[6.5rem_minmax(0,1fr)]",
+            getMdxToneClassName(tone),
+          )}
+        >
+          <span
+            className={joinClassNames(
+              "text-sm font-medium",
+              tone === "neutral" ? "text-foreground" : getMdxToneTextClassName(tone),
+            )}
+          >
+            {label}
+          </span>
+          <span className="text-sm leading-6 text-foreground/72">{description}</span>
         </div>
       ))}
     </div>
   );
 }
 
-export function CodeSnippet({ code }: { code: string }) {
+export function CodeSnippet({ code, language }: { code: string; language?: string }) {
+  const lines = code.split("\n");
+
   return (
-    <pre className="overflow-x-auto rounded-2xl border border-border/80 bg-background px-4 py-4 text-[0.92rem] leading-7 text-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]">
-      <code>{code}</code>
+    <pre className="overflow-x-auto rounded-2xl border border-[color:var(--code-border)] bg-[var(--code-bg)] px-4 py-4 text-[0.92rem] leading-7 text-[var(--code-text)] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+      <code>
+        {lines.map((line, index) => (
+          <span key={`${index}-${line}`} className="block">
+            {language ? highlightCodeLine(line, language) : line || "\u00a0"}
+          </span>
+        ))}
+      </code>
     </pre>
   );
 }

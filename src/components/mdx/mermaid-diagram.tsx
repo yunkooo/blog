@@ -53,19 +53,19 @@ export function MermaidDiagram({ chart }: MermaidDiagramProps) {
   }, [chart, isDarkMode, isMounted, reactId]);
 
   if (!isMounted) {
-    return <div className="my-6 min-h-56 rounded-[1.35rem] border border-border bg-muted/35" />;
+    return <div className="my-6 min-h-56 rounded-[1.35rem] border border-border bg-surface" />;
   }
 
   if (errorMessage) {
     return (
-      <pre className="my-6 overflow-x-auto rounded-[1.35rem] border border-border bg-muted/45 p-4 text-sm text-muted-foreground">
+      <pre className="my-6 overflow-x-auto rounded-[1.35rem] border border-[color:var(--code-border)] bg-[var(--code-bg)] p-4 text-sm text-[var(--code-muted)]">
         {chart}
       </pre>
     );
   }
 
   return (
-    <figure className="not-prose my-6 overflow-x-auto rounded-[1.35rem] border border-border bg-muted/35 p-4">
+    <figure className="not-prose my-6 overflow-x-auto rounded-[1.35rem] border border-border bg-surface p-4">
       <div
         className="min-w-[520px] [&_svg]:mx-auto [&_svg]:h-auto [&_svg]:max-w-full"
         dangerouslySetInnerHTML={{ __html: svg }}

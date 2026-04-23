@@ -91,8 +91,8 @@ const mdxRemoteOptions: MDXRemoteProps["options"] = {
           keepBackground: false,
           defaultLang: "plaintext",
           theme: {
-            light: "github-light-high-contrast",
-            dark: "github-dark-high-contrast",
+            light: "github-light",
+            dark: "github-dark",
           },
         },
       ],
