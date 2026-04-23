@@ -318,6 +318,14 @@
     line-height: inherit;
   }
 
+  .post-content pre code span {
+    color: var(--shiki-light, inherit);
+  }
+
+  .dark .post-content pre code span {
+    color: var(--shiki-dark, var(--shiki-light, inherit));
+  }
+
   .post-content a {
     text-decoration: underline;
     text-decoration-color: color-mix(in srgb, var(--foreground) 34%, transparent);

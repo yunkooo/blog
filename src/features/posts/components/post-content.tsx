@@ -85,7 +85,17 @@ const mdxRemoteOptions: MDXRemoteProps["options"] = {
         },
       ],
       rehypeMermaidCodeBlocks,
-      [rehypePrettyCode, { keepBackground: false, defaultLang: "plaintext" }],
+      [
+        rehypePrettyCode,
+        {
+          keepBackground: false,
+          defaultLang: "plaintext",
+          theme: {
+            light: "github-light-high-contrast",
+            dark: "github-dark-high-contrast",
+          },
+        },
+      ],
     ],
   },
 };

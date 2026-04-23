@@ -1,5 +1,5 @@
 import {
-  getMdxMarkerClassName,
+  getMdxMarkerOutlineClassName,
   MdxBlockTitle,
   MdxCard,
   MdxList,
@@ -35,8 +35,8 @@ export function Checklist({
         marker={
           <span
             className={joinClassNames(
-              "mt-1 flex size-5 items-center justify-center rounded-md border text-[0.72rem] font-semibold",
-              getMdxMarkerClassName(tone, true),
+              "mt-1 flex size-5 items-center justify-center rounded-md border bg-transparent text-[0.72rem] font-semibold",
+              getMdxMarkerOutlineClassName(tone),
             )}
           >
             ✓

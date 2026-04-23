@@ -1,5 +1,7 @@
 "use client";
 
+import type { ReactNode, Ref } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -15,6 +17,35 @@ type MdxGuideSidebarProps = {
 
 export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarProps) {
   const pathname = usePathname();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const activeItemRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    const activeItem = activeItemRef.current;
+
+    if (!scrollContainer || !activeItem) {
+      return;
+    }
+
+    const containerRect = scrollContainer.getBoundingClientRect();
+    const activeItemRect = activeItem.getBoundingClientRect();
+    const padding = 24;
+    const isVisible =
+      activeItemRect.top >= containerRect.top + padding &&
+      activeItemRect.bottom <= containerRect.bottom - padding;
+
+    if (isVisible) {
+      return;
+    }
+
+    scrollContainer.scrollTop =
+      scrollContainer.scrollTop +
+      activeItemRect.top -
+      containerRect.top -
+      scrollContainer.clientHeight / 2 +
+      activeItemRect.height / 2;
+  }, [pathname]);
 
   return (
     <aside className="lg:sticky lg:top-8 lg:self-start">
@@ -27,7 +58,10 @@ export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarPro
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-10 bg-gradient-to-t from-background to-transparent"
         />
-        <div className="max-h-[calc(100vh-4rem)] overflow-y-auto p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div
+          ref={scrollContainerRef}
+          className="max-h-[calc(100vh-4rem)] overflow-y-auto p-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           <p className="px-2 py-2 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
             Design / MDX
           </p>
@@ -36,7 +70,11 @@ export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarPro
             className="mt-2 grid gap-4 sm:grid-cols-2 lg:grid-cols-1"
           >
             <TocGroup title="소개">
-              <TocLink href="/design" isActive={isActivePath(pathname, "/design")}>
+              <TocLink
+                href="/design"
+                isActive={isActivePath(pathname, "/design")}
+                activeItemRef={activeItemRef}
+              >
                 디자인 가이드
               </TocLink>
             </TocGroup>
@@ -47,6 +85,7 @@ export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarPro
                   key={doc.href}
                   href={doc.href}
                   isActive={isActivePath(pathname, doc.href)}
+                  activeItemRef={activeItemRef}
                 >
                   {doc.title}
                 </TocLink>
@@ -59,6 +98,7 @@ export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarPro
                   key={doc.href}
                   href={doc.href}
                   isActive={isActivePath(pathname, doc.href)}
+                  activeItemRef={activeItemRef}
                 >
                   {doc.title}
                 </TocLink>
@@ -71,7 +111,7 @@ export function MdxGuideSidebar({ basicDocs, componentDocs }: MdxGuideSidebarPro
   );
 }
 
-function TocGroup({ title, children }: { title: string; children: React.ReactNode }) {
+function TocGroup({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
       <p className="border-b border-border/70 px-2 pb-2 text-base font-semibold text-foreground">
@@ -85,14 +125,17 @@ function TocGroup({ title, children }: { title: string; children: React.ReactNod
 function TocLink({
   href,
   isActive = false,
+  activeItemRef,
   children,
 }: {
   href: string;
   isActive?: boolean;
-  children: React.ReactNode;
+  activeItemRef?: Ref<HTMLAnchorElement>;
+  children: ReactNode;
 }) {
   return (
     <Link
+      ref={isActive ? activeItemRef : undefined}
       href={href}
       className={`rounded-xl px-3 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 ${
         isActive

@@ -70,6 +70,7 @@ const toneClasses: Record<
     solid: string;
     marker: string;
     subtleMarker: string;
+    outlineMarker: string;
     text: string;
   }
 > = {
@@ -81,6 +82,7 @@ const toneClasses: Record<
     solid: "border-foreground bg-foreground text-background",
     marker: "bg-foreground text-background border-foreground",
     subtleMarker: "bg-muted/55 text-foreground border-foreground/20",
+    outlineMarker: "border-muted-foreground/45 text-muted-foreground",
     text: "text-foreground",
   },
   info: {
@@ -91,6 +93,7 @@ const toneClasses: Record<
     solid: "border-sky-700 bg-sky-700 text-white dark:border-sky-300 dark:bg-sky-300 dark:text-sky-950",
     marker: "bg-sky-600 text-white border-sky-600 dark:bg-sky-300 dark:text-sky-950 dark:border-sky-300",
     subtleMarker: "bg-sky-500/15 text-sky-900 border-sky-500/25 dark:text-sky-100 dark:border-sky-300/30",
+    outlineMarker: "border-sky-600/45 text-sky-700 dark:border-sky-300/45 dark:text-sky-200",
     text: "text-sky-900 dark:text-sky-100",
   },
   success: {
@@ -103,6 +106,8 @@ const toneClasses: Record<
       "bg-emerald-600 text-white border-emerald-600 dark:bg-emerald-300 dark:text-emerald-950 dark:border-emerald-300",
     subtleMarker:
       "bg-emerald-500/15 text-emerald-900 border-emerald-500/25 dark:text-emerald-100 dark:border-emerald-300/30",
+    outlineMarker:
+      "border-emerald-600/45 text-emerald-700 dark:border-emerald-300/45 dark:text-emerald-200",
     text: "text-emerald-900 dark:text-emerald-100",
   },
   warning: {
@@ -114,6 +119,7 @@ const toneClasses: Record<
     marker: "bg-amber-500 text-amber-950 border-amber-500 dark:bg-amber-300 dark:border-amber-300",
     subtleMarker:
       "bg-amber-500/15 text-amber-900 border-amber-500/30 dark:text-amber-100 dark:border-amber-300/30",
+    outlineMarker: "border-amber-600/45 text-amber-700 dark:border-amber-300/45 dark:text-amber-200",
     text: "text-amber-900 dark:text-amber-100",
   },
   danger: {
@@ -124,6 +130,7 @@ const toneClasses: Record<
     solid: "border-rose-700 bg-rose-700 text-white dark:border-rose-300 dark:bg-rose-300 dark:text-rose-950",
     marker: "bg-rose-600 text-white border-rose-600 dark:bg-rose-300 dark:text-rose-950 dark:border-rose-300",
     subtleMarker: "bg-rose-500/15 text-rose-900 border-rose-500/25 dark:text-rose-100 dark:border-rose-300/30",
+    outlineMarker: "border-rose-600/45 text-rose-700 dark:border-rose-300/45 dark:text-rose-200",
     text: "text-rose-900 dark:text-rose-100",
   },
 };
@@ -153,16 +160,16 @@ const columnsClasses: Record<"1" | "2" | "3", string> = {
 };
 
 const codeTokenClassNames = {
-  keyword: "text-violet-700 dark:text-violet-300",
-  string: "text-emerald-700 dark:text-emerald-300",
-  number: "text-amber-700 dark:text-amber-300",
-  function: "text-sky-700 dark:text-sky-300",
-  tag: "text-rose-700 dark:text-rose-300",
-  attr: "text-yellow-700 dark:text-yellow-300",
-  comment: "text-muted-foreground",
-  punctuation: "text-foreground/65",
-  command: "text-sky-700 dark:text-sky-300",
-  option: "text-amber-700 dark:text-amber-300",
+  keyword: "text-[#7d2cc8] dark:text-violet-300",
+  string: "text-[#116329] dark:text-emerald-300",
+  number: "text-[#8a4b0f] dark:text-amber-300",
+  function: "text-[#0550ae] dark:text-sky-300",
+  tag: "text-[#a40e26] dark:text-rose-300",
+  attr: "text-[#7a4d00] dark:text-yellow-300",
+  comment: "text-[#57606a] dark:text-muted-foreground",
+  punctuation: "text-[#4b5563] dark:text-foreground/65",
+  command: "text-[#0550ae] dark:text-sky-300",
+  option: "text-[#8a4b0f] dark:text-amber-300",
 };
 
 export function normalizeMdxTone(tone: MdxToneInput = "neutral"): MdxTone {
@@ -176,6 +183,10 @@ export function getMdxToneClassName(tone: MdxToneInput = "neutral", variant: Mdx
 export function getMdxMarkerClassName(tone: MdxToneInput = "neutral", subtle = false) {
   const normalizedTone = normalizeMdxTone(tone);
   return subtle ? toneClasses[normalizedTone].subtleMarker : toneClasses[normalizedTone].marker;
+}
+
+export function getMdxMarkerOutlineClassName(tone: MdxToneInput = "neutral") {
+  return toneClasses[normalizeMdxTone(tone)].outlineMarker;
 }
 
 export function getMdxToneTextClassName(tone: MdxToneInput = "neutral") {

@@ -1,5 +1,4 @@
 import {
-  getMdxMarkerClassName,
   MdxList,
   type MdxSize,
   type MdxToneInput,
@@ -36,7 +35,8 @@ export function StepList({
         <span
           className={joinClassNames(
             "flex h-7 w-7 min-w-7 shrink-0 aspect-square items-center justify-center rounded-full border text-sm font-medium",
-            getMdxMarkerClassName(tone),
+            "border-foreground bg-transparent text-foreground",
+            "dark:border-foreground/35 dark:bg-muted/70 dark:text-foreground",
           )}
         >
           {index + 1}
