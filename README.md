@@ -53,11 +53,16 @@ flowchart TD
 | Tooling | TypeScript, ESLint |
 | Deployment | GitHub Actions, Vercel CLI |
 
+## Design
+
+MDX 글 작성에 사용하는 컴포넌트와 예시는 [yunkoo.dev/design](https://yunkoo.dev/design)에서 확인할 수 있습니다.
+
 ## 폴더 구조
 
 ```txt
 src/app
   ├─ (site)              # 블로그 공개 라우트
+  ├─ (site)/design       # MDX 디자인 가이드
   ├─ robots.ts           # robots.txt
   └─ sitemap.ts          # sitemap.xml
 
@@ -66,6 +71,8 @@ src/features/posts
   ├─ components          # MDX 본문 렌더링
   └─ utils               # post 관련 유틸
 
+src/features/design      # 디자인 가이드 데이터와 사이드바
+src/components/mdx       # 글 꾸미기용 MDX 컴포넌트
 src/components           # 공통 UI
 content-source/posts     # private posts repo submodule
 ```
