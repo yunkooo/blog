@@ -57,12 +57,12 @@ export default function DesignPage() {
         <GuideLinkCard
           href={getMdxGuideHref(firstBasicDoc)}
           title="MDX 기본"
-          description="제목, 목록, 코드블록처럼 글을 구성하는 기본 문법을 확인합니다."
+          description="제목, 링크, 목록, 코드블록처럼 글을 구성하는 기본 문법을 확인합니다."
         />
         <GuideLinkCard
           href={getMdxGuideHref(firstComponentDoc)}
           title="MDX 컴포넌트"
-          description="Callout, SummaryBox, FileTree처럼 글 안에서 쓰는 컴포넌트 예시를 확인합니다."
+          description="글 안에서 쓰는 모든 커스텀 컴포넌트의 용도, 미리보기, 복사 가능한 예시를 확인합니다."
         />
       </section>
     </MdxGuideLayout>
