@@ -4,7 +4,6 @@ import {
   basicDocs,
   componentDocs,
   getMdxGuideHref,
-  MdxGuideLayout,
 } from "@/features/design/mdx-guide-data";
 import { siteConfig } from "@/lib/site";
 
@@ -41,7 +40,7 @@ export default function DesignPage() {
     componentDocs.find((doc) => doc.slug === "tone-사용법") ?? componentDocs[0];
 
   return (
-    <MdxGuideLayout>
+    <>
       <section className="border-b border-border pb-8">
         <p className="text-sm uppercase tracking-[0.24em] text-muted-foreground">MDX Guide</p>
         <h1 className="mt-3 text-[1.9rem] font-semibold tracking-tight sm:text-[2.55rem]">
@@ -66,7 +65,7 @@ export default function DesignPage() {
           description="tone 고르는 법부터 모든 커스텀 컴포넌트의 용도, 미리보기, 복사 가능한 예시를 확인합니다."
         />
       </section>
-    </MdxGuideLayout>
+    </>
   );
 }
 

@@ -4,7 +4,6 @@ import {
   ExampleCard,
   getMdxGuideDocBySlug,
   getMdxGuideStaticParams,
-  MdxGuideLayout,
 } from "@/features/design/mdx-guide-data";
 import { siteConfig } from "@/lib/site";
 
@@ -64,7 +63,7 @@ export default async function MdxGuideDetailPage({ params }: MdxGuideDetailPageP
   }
 
   return (
-    <MdxGuideLayout activeSlug={doc.slug}>
+    <>
       <section className="border-b border-border pb-6">
         <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground">
           {doc.category === "basic" ? "MDX Basic" : "MDX Component"}
@@ -80,6 +79,6 @@ export default async function MdxGuideDetailPage({ params }: MdxGuideDetailPageP
       <section className="py-8 sm:py-10">
         <ExampleCard doc={doc} />
       </section>
-    </MdxGuideLayout>
+    </>
   );
 }
