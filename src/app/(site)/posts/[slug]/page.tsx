@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SummaryBox } from "@/components/mdx";
 import { getPostBySlug, getPostSlugs } from "@/features/posts/data";
 import { renderPostContent } from "@/features/posts/components/post-content";
 import { formatKoreanDate } from "@/features/posts/utils/format-korean-date";
@@ -166,10 +165,6 @@ export default async function PostDetailPage({ params }: PostPageProps) {
             </div>
           ) : null}
         </header>
-
-        {post.summary && post.summary.length > 0 ? (
-          <SummaryBox title="핵심 요약" items={post.summary} />
-        ) : null}
 
         <div className="post-content mt-7 w-full sm:mt-8">{content}</div>
       </article>

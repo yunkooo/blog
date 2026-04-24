@@ -26,6 +26,7 @@ import {
   StepList,
   SummaryBox,
   TerminalBlock,
+  TldrBox,
   Timeline,
   ToolGrid,
 } from "@/components/mdx";
@@ -53,6 +54,7 @@ const mdxComponents = {
   StepList,
   SummaryBox,
   TerminalBlock,
+  TldrBox,
   Timeline,
   ToolGrid,
   a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {

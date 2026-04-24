@@ -23,6 +23,7 @@ import {
   StepList,
   SummaryBox,
   TerminalBlock,
+  TldrBox,
   Timeline,
   ToolGrid,
 } from "@/components/mdx";
@@ -482,6 +483,38 @@ export const componentDocs: MdxGuideDoc[] = [
             term="SSG"
             description="빌드 시점에 HTML을 미리 만들어두는 렌더링 방식입니다."
             tone="neutral"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    slug: "tldrbox",
+    title: "TldrBox",
+    category: "component",
+    description: "글 도입부에서 핵심만 먼저 보여주는 조용한 TL;DR 요약입니다.",
+    code: [
+      "<TldrBox",
+      '  items="DNS는 도메인을 실제 요청 위치와 연결한다|브라우저는 HTML과 CSS를 해석해 화면을 만든다|SEO/AEO/GEO는 문서를 더 잘 이해시키는 단서다"',
+      "/>",
+    ].join("\n"),
+    preview: (
+      <TldrBox items="DNS는 도메인을 실제 요청 위치와 연결한다|브라우저는 HTML과 CSS를 해석해 화면을 만든다|SEO/AEO/GEO는 문서를 더 잘 이해시키는 단서다" />
+    ),
+    note: "테두리와 강조 색상을 덜어낸 도입부 전용 요약입니다. 헤더 구분선과 겹치는 별도 상단 라인을 만들지 않습니다.",
+    examples: [
+      {
+        title: "제목 바꾸기",
+        code: [
+          "<TldrBox",
+          '  title="짧게 보면"',
+          '  items="먼저 결론을 알려준다|본문에서는 근거를 차례대로 설명한다"',
+          "/>",
+        ].join("\n"),
+        preview: (
+          <TldrBox
+            title="짧게 보면"
+            items="먼저 결론을 알려준다|본문에서는 근거를 차례대로 설명한다"
           />
         ),
       },

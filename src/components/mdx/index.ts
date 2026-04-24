@@ -19,5 +19,6 @@ export { Spotlight } from "@/components/mdx/spotlight";
 export { StepList } from "@/components/mdx/step-list";
 export { SummaryBox } from "@/components/mdx/summary-box";
 export { TerminalBlock } from "@/components/mdx/terminal-block";
+export { TldrBox } from "@/components/mdx/tldr-box";
 export { Timeline } from "@/components/mdx/timeline";
 export { ToolGrid } from "@/components/mdx/tool-grid";
