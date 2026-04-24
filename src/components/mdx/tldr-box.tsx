@@ -29,7 +29,6 @@ export function TldrBox({ title = "TL;DR", items, size = "md" }: TldrBoxProps) {
         <span className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
           {title}
         </span>
-        <span className="text-sm text-muted-foreground">TL;DR</span>
       </div>
 
       <ul className={joinClassNames("grid list-none gap-2.5 p-0", textSizeClasses[size])}>
